@@ -23,10 +23,13 @@ Perfil de usuario: los usuarios tienen un perfil en la aplicación que muestra s
 
 
 
-# Interficie Gráfica
+# `Interficie Gráfica`
 ![image](https://user-images.githubusercontent.com/91561216/217053413-c23f0be8-7c47-4564-9a9a-757fb677fc44.png) ![image](https://user-images.githubusercontent.com/91561216/217053495-242e98d4-2b72-4025-b3e1-c9403ec7f29a.png)
+# 
 ![image](https://user-images.githubusercontent.com/91561216/217053786-ec48aad5-58ee-4149-9a7c-f92ebbd72c35.png) ![image](https://user-images.githubusercontent.com/91561216/217053974-aafac870-44c9-4974-9252-736c7f1344e8.png)
+# 
 ![image](https://user-images.githubusercontent.com/91561216/217054112-d2bd7227-0785-40cd-90c1-65d99202174b.png) ![image](https://user-images.githubusercontent.com/91561216/217054211-35e8dc8c-ef23-4eb9-bd46-5f7381a529f4.png)
+# 
 ![image](https://user-images.githubusercontent.com/91561216/217054314-12e4b4da-42e1-43e0-8070-1271d6c2f8c2.png) ![image](https://user-images.githubusercontent.com/91561216/217054363-136a3b32-3a2d-4a71-8701-47dbbb159148.png)
 
 
