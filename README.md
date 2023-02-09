@@ -1,5 +1,5 @@
-
-$\color{blue}Authors:$ $\color{blue} Naiel$ $\color{blue} Fernández$ $\color{blue} y$ $\color{blue} Ankit$ $\color{blue} Kumar$
+$$\color{black} \colorbox{BLUE} {orange background} $$
+> $\color{blue}Authors:$ $\color{blue} Naiel$ $\color{blue} Fernández$ $\color{blue} y$ $\color{blue} Ankit$ $\color{blue} Kumar$
 # Buy-SellNow
 
 >BuySellNow es una aplicación de compra-venta en línea para productos nuevos y de segunda mano. Con BuySellNow, los usuarios pueden registrarse en la aplicación y > publicar productos para la venta o comprar productos que ya estén en la venta en la aplicación.
