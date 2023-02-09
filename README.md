@@ -26,6 +26,8 @@ Perfil de usuario: los usuarios tienen un perfil en la aplicación que muestra s
 
 
 # `Interficie Gráfica`
+FIGMA DESIGN --> https://www.figma.com/file/pk1i8vmI1jApWRiK3DrG2J/u?node-id=0%3A1&t=iyNqaDapFycIiYlR-1
+
 ![image](https://user-images.githubusercontent.com/91561216/217053413-c23f0be8-7c47-4564-9a9a-757fb677fc44.png) ![image](https://user-images.githubusercontent.com/91561216/217053495-242e98d4-2b72-4025-b3e1-c9403ec7f29a.png)
 # 
 ![image](https://user-images.githubusercontent.com/91561216/217053786-ec48aad5-58ee-4149-9a7c-f92ebbd72c35.png) ![image](https://user-images.githubusercontent.com/91561216/217053974-aafac870-44c9-4974-9252-736c7f1344e8.png)
