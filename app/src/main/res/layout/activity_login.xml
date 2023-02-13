@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="25dp"
-            app:srcCompat="@drawable/logo_sell_now" />
+            app:srcCompat="@drawable/logo_sell_now"
+            tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 
     <TextView

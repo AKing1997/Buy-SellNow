@@ -1,4 +1,6 @@
-> $\color{white} \colorbox{BLUE} { Authors: Naiel Fernández y Ankit Kumar} $
+$\color{#58A6FF}\textsf{\Large\&#x24D8;\kern{0.2cm}\normalsize Authors}$
+__$\color{white} \colorbox{BLUE} { Naiel Fernández y Ankit Kumar } $__
+ 
 # Buy-SellNow
 
 >BuySellNow es una aplicación de compra-venta en línea para productos nuevos y de segunda mano. Con BuySellNow, los usuarios pueden registrarse en la aplicación y > publicar productos para la venta o comprar productos que ya estén en la venta en la aplicación.
