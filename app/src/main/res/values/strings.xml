@@ -2,4 +2,7 @@
     <string name="app_name">Buy Sell Now</string>
     <string name="login_welcome">¡Hola! bienvenid@ de nuevo a Buy &amp; Sell Now</string>
     <string name="sing_up_welcome">¡Hola! bienvenid@ a Buy &amp; Sell Now</string>
+    <string name="email">email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>

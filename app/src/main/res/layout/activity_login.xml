@@ -51,11 +51,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints=""
         android:background="@drawable/custom_input"
-        android:drawableLeft="@drawable/custom_email"
+        android:drawableStart="@drawable/custom_email"
         android:drawablePadding="10sp"
         android:ems="10"
-        android:hint="email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:padding="10sp"
@@ -63,20 +64,22 @@
         android:textColorHint="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/loginPaaswordInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints=""
         android:background="@drawable/custom_input"
-        android:drawableLeft="@drawable/customa_lock"
+        android:drawableStart="@drawable/customa_lock"
         android:drawablePadding="10sp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="10sp"
@@ -84,19 +87,21 @@
         android:textColorHint="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmailInput" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmailInput"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/LoginEntrarBtn"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:backgroundTint="@color/primary"
         android:text="Entrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPaaswordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPaaswordInput"
+        tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
