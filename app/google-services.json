@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "1083279031722",
+    "firebase_url": "https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "buy-sell-now-an",
+    "storage_bucket": "buy-sell-now-an.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083279031722:android:62f23900d94e00f16dbfd3",
+        "android_client_info": {
+          "package_name": "com.example.buy_sellnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083279031722-ovrnp5m0acnhqh478hcdvv6vgs4n0l90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcWau_M9HiqJqlMEdOhKA5JboQMxwGN18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083279031722-ovrnp5m0acnhqh478hcdvv6vgs4n0l90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083279031722:android:8a15456995e0502e6dbfd3",
+        "android_client_info": {
+          "package_name": "com.example.buysellnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083279031722-l6pg9r97kmgmchb422rk96315p1uc7m5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.buysellnow",
+            "certificate_hash": "2b26ecc6119927900fe57cd4aa24f4e1178b629f"
+          }
+        },
+        {
+          "client_id": "1083279031722-ovrnp5m0acnhqh478hcdvv6vgs4n0l90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcWau_M9HiqJqlMEdOhKA5JboQMxwGN18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083279031722-ovrnp5m0acnhqh478hcdvv6vgs4n0l90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
