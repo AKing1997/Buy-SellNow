@@ -1,26 +1,24 @@
 package com.example.buy_sellnow.fragments
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.GridView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.buy_sellnow.Adapters.RecycleViewList
 import com.example.buy_sellnow.Model.GridViewProduct
-import com.example.buy_sellnow.Adapters.ProductGridViewAdapter
 import com.example.buy_sellnow.R
 
-
-class Favorite : Fragment() {
+class Profile : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        var fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view);
+        var view = inflater.inflate(R.layout.fragment_profile, container, false);
+        var prom_list_view: RecyclerView = view.findViewById(R.id.prom_list_view);
         var productLis = ArrayList<GridViewProduct>();
         val product1 = GridViewProduct(
             "P001",
@@ -76,21 +74,13 @@ class Favorite : Fragment() {
         productLis.add(product5);
         productLis.add(product6);
         for (product in productLis) {
-            product.precio = product.precio + "€";
-            if (product.productTitle.length > 30) {
-                product.productTitle = product.productTitle.substring(0, 30);
+            if (product.productTitle.length > 13) {
+                product.productTitle = product.productTitle.substring(0, 13);
             }
         }
-        val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context);
-        fav_grid_view.adapter = productGridViewAdapter;
-        fav_grid_view.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            // inside on click method we are simply displaying
-            // a toast message with course name.
-            Toast.makeText(
-                view.context, productLis[position].productTitle + " selected",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        prom_list_view.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
+        val adapter : RecycleViewList = RecycleViewList(productLis, context);
+        prom_list_view.adapter = adapter;
         return view;
     }
 }
