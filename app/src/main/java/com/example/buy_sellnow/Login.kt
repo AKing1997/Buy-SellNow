@@ -33,7 +33,7 @@ class Login : AppCompatActivity() {
             }
         }
     }
-        @SuppressLint("MissingInflatedId")
+        @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -47,7 +47,7 @@ class Login : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build();
-        this.googleSignInClient = getClient(this,gso);
+        googleSignInClient = getClient(this,gso);
             googleBtn.setOnClickListener {
                 singInGoogle();
             }
