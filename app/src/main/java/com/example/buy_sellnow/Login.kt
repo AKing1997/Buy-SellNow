@@ -47,7 +47,7 @@ class Login : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build();
-        googleSignInClient = getClient(this,gso);
+        this.googleSignInClient = getClient(this,gso);
             googleBtn.setOnClickListener {
                 singInGoogle();
             }
