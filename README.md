@@ -24,6 +24,8 @@ Perfil de usuario: los usuarios tienen un perfil en la aplicación que muestra s
 
 >Clase Productos: representa un producto publicado para la venta en la aplicación. Almacena información como el ID de producto, nombre, categoría, descripción, precio, peso, imágenes, color, marca, título, valoración, informacion_producto, estado, estado_producto, delivery, UserId.
 
+# `Diagrama de base de datos`
+![DataBaseDiagrama](https://user-images.githubusercontent.com/91979162/221801732-4f566a40-508b-4653-821d-b63bdec7ba3d.png)
 
 
 # `Interficie Gráfica`
