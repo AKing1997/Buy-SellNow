@@ -23,4 +23,13 @@
         <item name="android:minWidth">18dip</item>
         <item name="android:maxWidth">18dip</item>
     </style>
+
+    <style name="Theme.BuySellNow.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BuySellNow.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BuySellNow.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
