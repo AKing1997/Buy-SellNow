@@ -4,11 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.buy_sellnow.Activity.AddProduct
 import com.example.buy_sellnow.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         defaultPage();
         // Creando una variable para los botones de menu navegacion
         val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView);
-        val addForm: Button = findViewById(R.id.addProduct)
+        val addForm: FloatingActionButton = findViewById(R.id.addProduct)
 
         addForm.setOnClickListener {
             val redrige: Intent = Intent(this, AddProduct::class.java);
