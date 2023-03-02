@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Activity.AddProduct">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:buttonGravity="top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back_24"
+        app:subtitleTextColor="@color/primary"
+        app:title="NUEVO PRODUCTO"
+        app:titleTextColor="@color/primary" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
