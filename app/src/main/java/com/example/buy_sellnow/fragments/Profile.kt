@@ -1,6 +1,7 @@
 package com.example.buy_sellnow.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -74,6 +75,7 @@ class Profile : Fragment() {
         productLis.add(product5);
         productLis.add(product6);
         for (product in productLis) {
+            product.precio = product.precio + "€";
             if (product.productTitle.length > 13) {
                 product.productTitle = product.productTitle.substring(0, 13);
             }

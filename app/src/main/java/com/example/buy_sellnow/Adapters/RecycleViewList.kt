@@ -25,6 +25,7 @@ class RecycleViewList(
     var context: Context? = context;
     // Return cantidad de items en el recycler/lista
     override fun getItemCount(): Int {
+        Log.i("ANKITLOG", "" + listas.size)
         return listas.size;
     }
 

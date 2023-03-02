@@ -85,19 +85,18 @@ class Home : Fragment() {
                 product.productTitle = product.productTitle.substring(0, 30);
             }
         }
-        val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context);
-        fav_grid_view_home.adapter = productGridViewAdapter;
 
-        for (product in productLis) {
-            product.precio = product.precio + "€";
-            if (product.productTitle.length > 13) {
-                product.productTitle = product.productTitle.substring(0, 13);
-            }
-        }
         prom_list_view_home.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false);
         val adapter : RecycleViewList = RecycleViewList(productLis, context);
         prom_list_view_home.adapter = adapter;
+        for (product in productLis) {
+            if (product.productTitle.length > 13) {
+                product.productTitle = product.productTitle.substring(0, 13);
+            }
+        }
+        val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context);
+        fav_grid_view_home.adapter = productGridViewAdapter;
         return view;
     }
 }

@@ -7,5 +7,6 @@
     <string name="confirm_password">Confirm password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vaya_como_que_tas_olvidado_la_contrase_a_bueno_vamos_a_recuperarlo_introduce_los_campos_necesarios">¡Vaya! Como que tas olvidado la contraseña. ¡Bueno! vamos a recuperarlo Introduce los campos necesarios.</string>
 
 </resources>

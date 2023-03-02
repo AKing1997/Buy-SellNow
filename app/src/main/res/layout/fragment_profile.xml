@@ -29,7 +29,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/profile_user_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                 />
+                />
 
             <ImageButton
                 android:id="@+id/log_out"
@@ -180,26 +180,16 @@
                         android:textColor="@color/primary"
                         android:textSize="16sp" />
 
-                    <HorizontalScrollView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/prom_list_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:paddingLeft="10dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/prom_list_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal" />
-                        </LinearLayout>
-                    </HorizontalScrollView>
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        tools:ignore="RtlSymmetry" />
 
                     <Button
                         android:id="@+id/profile_config_btn"
