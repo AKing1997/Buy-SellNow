@@ -24,12 +24,12 @@
                 android:id="@+id/profile_user_img"
                 android:layout_width="135dp"
                 android:layout_height="0dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/buttom_boder_left"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/profile_user_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/log_out"
