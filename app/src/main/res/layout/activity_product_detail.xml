@@ -29,7 +29,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:navigationIcon="@drawable/arrow_back_24"
-                app:title="Zapatos Nike 44T"
+                app:title="product name"
                 app:titleTextColor="@color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
