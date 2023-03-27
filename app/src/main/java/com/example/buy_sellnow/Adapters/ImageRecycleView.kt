@@ -16,11 +16,11 @@ import com.example.buy_sellnow.Activity.FullScreenImageView
 import com.example.buy_sellnow.R
 
 class ImageRecycleView(
-    listas: ArrayList<Bitmap>,
+    listas: ArrayList<Uri>,
     context: Context,
     b: Boolean,
 ) : RecyclerView.Adapter<ImageRecycleView.ViewHolder>() {
-    var listas: ArrayList<Bitmap> = listas;
+    var listas: ArrayList<Uri> = listas;
     var context: Context = context;
     var b: Boolean = b;
     // Return cantidad de items en el recycler/lista

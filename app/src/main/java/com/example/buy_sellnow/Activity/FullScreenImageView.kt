@@ -10,7 +10,7 @@ import com.example.buy_sellnow.Adapters.ImageRecycleView
 import com.example.buy_sellnow.R
 
 class FullScreenImageView: AppCompatActivity() {
-     lateinit var imageUris: ArrayList<Bitmap>;
+     lateinit var imageUris: ArrayList<Uri>;
     companion object {
         lateinit var adapter: ImageRecycleView;
         lateinit var recycleView: RecyclerView;

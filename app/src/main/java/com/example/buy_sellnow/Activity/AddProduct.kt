@@ -30,7 +30,7 @@ import java.io.FileNotFoundException
 
 class AddProduct : AppCompatActivity() {
     companion object {
-        var imageUris: ArrayList<Bitmap> = ArrayList();
+        var imageUris: ArrayList<Uri> = ArrayList();
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1001;
         private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002;
         private var CAMERA_EXTERNAL = 0; //1 CAM - 2 EXTERNAL
@@ -86,12 +86,13 @@ class AddProduct : AppCompatActivity() {
     }
 
     val pickMultipleMedia =
-        registerForActivityResult(PickMultipleVisualMedia(maxImage)) { uris ->
+        registerForActivityResult(PickMultipleVisualMedia(maxImage- imageUris.size)) { uris ->
             if (uris.isNotEmpty()) {
-                for (uri in uris){
+                /*for (uri in uris){
                     val bitmap = uriToBitmap(uri, contentResolver)
                     bitmap?.let { imageUris.add(it) };
-                }
+                }*/
+                imageUris.addAll(uris);
                 adapterImage();
             } else {
                 Log.d("PhotoPicker", "No media selected")
@@ -164,7 +165,6 @@ class AddProduct : AppCompatActivity() {
         }
 
         addProductGallaryPick.setOnClickListener {
-            Toast.makeText(this, maxImage.toString(), Toast.LENGTH_SHORT).show()
             maxImage = (5 - imageUris.size)
             Toast.makeText(this, maxImage.toString(), Toast.LENGTH_SHORT).show()
             mediaSelecterCons.visibility = View.VISIBLE
@@ -285,7 +285,7 @@ class AddProduct : AppCompatActivity() {
                 //imageUris.add(intent)
                 if (imageBitmap != null) {
                     Toast.makeText(this, "anterea",Toast.LENGTH_SHORT).show()
-                    imageUris.add(imageBitmap)
+                    //imageUris.add(imageBitmap)
                     adapterImage();
                 }
                 //imageView.setImageBitmap(imageBitmap);
