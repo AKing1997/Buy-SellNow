@@ -466,6 +466,7 @@
             android:backgroundTint="@color/white"
             android:text="@string/select_from_camara"
             android:textColor="@color/secondary"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/addProductGallaryBtn"
             app:layout_constraintStart_toStartOf="parent" />
