@@ -4,7 +4,7 @@ import com.example.buy_sellnow.Model.Enum.ProductStatus
 import com.example.buy_sellnow.Model.Enum.Status
 
 data class Product(
-    var productId: String,
+    var productId: String?,
     var tituloDeProducto: String,
     var categoria: String,
     var subcategoria: String,

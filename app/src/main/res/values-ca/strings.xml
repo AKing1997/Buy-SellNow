@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_welcome">¡Hola! bienvenid@ de nuevo a Buy &amp; Sell Now</string>
+    <string name="sing_up_welcome">¡Hola! bienvenid@ a Buy &amp; Sell Now</string>
+    <string name="email">email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="status_product">Product Status</string>
+    <string name="category_list">Category</string>
+    <string name="delivery">Delivery</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <!-- Message inputs and textView For Aplicacion Start here -->
+    <string name="registerMsg">Registra\'t i compra/venda productes de segona mà o nous.</string>
+    <string name="registerBtn">Registra\'t</string>
+    <string name="welcomeMsg">Benvingut/da a Buy and Sell Now! Explora la nostra àmplia selecció de productes nous i usats i troba el que estàs buscant. Que gaudeixis de l\'experiència de compra i venda amb nosaltres!</string>
+
+
+    <!-- Message inputs and textView For Aplicacion End here -->
+
+    <string-array name="category_array_list">
+        <item>select here!</item>
+        <item>Veiculos</item>
+        <item>Informatica</item>
+        <item>Muebles</item>
+        <item>Inmuebles</item>
+        <item>Electronica</item>
+        <item>Hogar</item>
+        <item>Jardineria</item>
+        <item>Servicio</item>
+        <item>Otros</item>
+    </string-array>
+
+    <string-array name="status_product_list">
+        <item>select here!</item>
+        <item>Nuevo</item>
+        <item>Buen Estado</item>
+        <item>Bien</item>
+        <item>A Mejorar</item>
+    </string-array>
+
+    <string-array name="delivery_list">
+        <item>select here!</item>
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+    <string name="create_product">Create new product</string>
+    <string name="create_product_btn">Post Product</string>
+    <string name="select_image_from">Select Image From</string>
+    <string name="select_from_camara">Camera</string>
+    <string name="select_from_galary">Gallary</string>
+
+    <!-- String variables para error msg Add Product -->
+    <string name="notEmptyBrand">Sembla que t\'has oblidat de omplir la marca!</string>
+    <string name="notEmptyName">Sembla que t\'has oblidat d\'omplir el nom!</string>
+    <string name="notEmptyDesc">Sembla que t\'has oblidat d\'omplir la descripció!</string>
+    <string name="notEmptyWgt">Sembla que t\'has oblidat d\'omplir el pes!</string>
+    <string name="notEmptyPrice">Sembla que t\'has oblidat d\'omplir el preu!</string>
+    <string name="notSelectedStatus">Sembla que t\'has oblidat de seleccionar l\'estat!</string>
+    <string name="notSelectedDelivry">Sembla que t\'has oblidat de seleccionar l\'enviament!</string>
+    <string name="notSelectedCateg">Sembla que t\'has oblidat de seleccionar la categoria!</string>
+
+    <!-- Mensajes de error de registro -->
+    <string name="signUpEmailErMsg">¡Se ha oblidat d’omplir el correu electrònic!</string>
+    <string name="signUpPasswordErMsg">¡Se ha oblidat d’omplir la contrasenya!</string>
+    <string name="signUpConfirmPasswordErMsg">¡Se ha oblidat d’omplir la contrasenya de confirmació!</string>
+    <string name="signUpPasswordNotMatchErMsg">¡Ups, les contrasenyes no coincideixen!</string>
+
+</resources>

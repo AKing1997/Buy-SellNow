@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_welcome">¡Hola! bienvenid@ de nuevo a Buy &amp; Sell Now</string>
+    <string name="sing_up_welcome">¡Hola! bienvenid@ a Buy &amp; Sell Now</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="vaya_como_que_tas_olvidado_la_contrase_a_bueno_vamos_a_recuperarlo_introduce_los_campos_necesarios">¡Vaya! Como que tas olvidado la contraseña. ¡Bueno! vamos a recuperarlo Introduce los campos necesarios.</string>
+    <string name="title_activity_add_product">Crear un producto Nuevo</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="status_product">Selecciona el estado de poducto *</string>
+    <string name="category_list">Selecciona una categoria *</string>
+    <string name="delivery">¿Puedes enviar? *</string>
+    <!-- Message inputs and textView For Aplicacion Start here -->
+    <string name="registerMsg">Regístrate y compra/vende productos de segunda mano o nuevos.</string>
+    <string name="registerBtn">Regístrate</string>
+    <string name="welcomeMsg">¡Bienvenido/a a Buy and Sell Now! Explora nuestra amplia selección de productos nuevos y usados y encuentra lo que estás buscando. ¡Que disfrutes de la experiencia de compra y venta con nosotros!</string>
+
+
+
+    <!-- Message inputs and textView For Aplicacion End here --> -->
+    <string-array name="category_array_list">
+        <item>select here!</item>
+        <item>Veiculos</item>
+        <item>Informatica</item>
+        <item>Muebles</item>
+        <item>Inmuebles</item>
+        <item>Electronica</item>
+        <item>Hogar</item>
+        <item>Jardineria</item>
+        <item>Servicio</item>
+        <item>Otros</item>
+    </string-array>
+
+    <string-array name="status_product_list">
+        <item>select here!</item>
+        <item>Nuevo</item>
+        <item>Buen Estado</item>
+        <item>Bien</item>
+        <item>A Mejorar</item>
+    </string-array>
+
+    <string-array name="delivery_list">
+        <item>select here!</item>
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+    <string name="create_product">Crear nuevo producto</string>
+    <string name="create_product_btn">Publicar Producto</string>
+    <string name="select_image_from">Seleccionar Imagen desde</string>
+    <string name="select_from_camara">Camara</string>
+    <string name="select_from_galary">Album</string>
+
+    <!-- String variables para error msg Add Product -->
+    <string name="notEmptyBrand">¡Parece que te has olvidado rellenar la marca!</string>
+    <string name="notEmptyName">¡Parece que te has olvidado rellenar el nombre!</string>
+    <string name="notEmptyDesc">¡Parece que te has olvidado rellenar la descripción!</string>
+    <string name="notEmptyWgt">¡Parece que te has olvidado rellenar el peso!</string>
+    <string name="notEmptyPrice">¡Parece que te has olvidado rellenar el precio!</string>
+    <string name="notSelectedStatus">¡Parece que te has olvidado seleccionar el estado!</string>
+    <string name="notSelectedDelivry">¡Parece que te has olvidado seleccionar el envío!</string>
+    <string name="notSelectedCateg">¡Parece que te has olvidado seleccionar la categoría!</string>
+
+
+    <!-- Mensajes de error de registro -->
+    <string name="signUpEmailErMsg">¡Parece que olvidaste llenar el correo electrónico!</string>
+    <string name="signUpPasswordErMsg">¡Se ha olvidado de completar la contraseña! La contraseña debe tener al menos 6 caracteres.</string>
+    <string name="signUpConfirmPasswordErMsg">¡Se ha olvidado de completar la contraseña de confirmación! La contraseña debe tener al menos 6 caracteres.</string>
+    <string name="signUpPasswordNotMatchErMsg">¡Oops, las contraseñas no coinciden!</string>
+
+</resources>

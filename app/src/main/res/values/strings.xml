@@ -1,21 +1,94 @@
 <resources>
-    <string name="app_name">Buy Sell Now</string>
+    <!-- Shared Perferences variables  Start here -->
+    <string name="sesionPref" translatable="false">Perfereces_Session_KEY</string>
+    <string name="settingPref" translatable="false">Perfereces_Settings_KEY</string>
+
+    <!-- Shared Perferences variables  End here -->
+    <!-- Message inputs and textView For Aplicacion Start here -->
+    <string name="registerMsg">Sign up and buy/sell second-hand or new products.</string>
+    <string name="registerBtn">Sign Up</string>
+    <string name="welcomeMsg">Welcome to Buy and Sell Now! Browse our wide selection of new and used products and find what you\'re looking for. Enjoy the buying and selling experience with us!</string>
+
+    <!-- Message inputs and textView For Aplicacion End here -->
+    <string name="app_name" translatable="false">Buy Sell Now</string>
     <string name="login_welcome">¡Hola! bienvenid@ de nuevo a Buy &amp; Sell Now</string>
     <string name="sing_up_welcome">¡Hola! bienvenid@ a Buy &amp; Sell Now</string>
     <string name="email">email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="vaya_como_que_tas_olvidado_la_contrase_a_bueno_vamos_a_recuperarlo_introduce_los_campos_necesarios">¡Vaya! Como que tas olvidado la contraseña. ¡Bueno! vamos a recuperarlo Introduce los campos necesarios.</string>
-    <string name="title_activity_add_product">AddProduct</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="vaya_como_que_tas_olvidado_la_contrase_a_bueno_vamos_a_recuperarlo_introduce_los_campos_necesarios" translatable="false">¡Vaya! Como que tas olvidado la contraseña. ¡Bueno! vamos a recuperarlo Introduce los campos necesarios.</string>
+    <string name="title_activity_add_product" translatable="false">AddProduct</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="status_product">Product Status</string>
+    <string name="category_list">Category</string>
+    <string name="delivery">Delivery</string>
+    <string-array name="category_array_list">
+        <item>select here!</item>
+        <item>Veiculos</item>
+        <item>Informatica</item>
+        <item>Muebles</item>
+        <item>Inmuebles</item>
+        <item>Electronica</item>
+        <item>Hogar</item>
+        <item>Jardineria</item>
+        <item>Servicio</item>
+        <item>Otros</item>
+    </string-array>
+
+    <string-array name="status_product_list">
+        <item>select here!</item>
+        <item>Nuevo</item>
+        <item>Buen Estado</item>
+        <item>Bien</item>
+        <item>A Mejorar</item>
+    </string-array>
+
+    <string-array name="delivery_list">
+        <item>select here!</item>
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+    <string name="create_product">Create new product</string>
+    <string name="create_product_btn">Post Product</string>
+    <string name="select_image_from">Select Image From</string>
+    <string name="select_from_camara">Camera</string>
+    <string name="select_from_galary">Gallary</string>
+
+    <!-- String variables para error msg Add Product -->
+    <string name="notEmptyBrand">It seems you forgot to fill in the brand!</string>
+    <string name="notEmptyName">It seems you forgot to fill in the name!</string>
+    <string name="notEmptyDesc">It seems you forgot to fill in the description!</string>
+    <string name="notEmptyWgt">It seems you forgot to fill in the weight!</string>
+    <string name="notEmptyPrice">It seems you forgot to fill in the price!</string>
+    <string name="notSelectedStatus">It seems you forgot to select the status!</string>
+    <string name="notSelectedDelivry">It seems you forgot to select the delivery!</string>
+    <string name="notSelectedCateg">It seems you forgot to select the category!</string>
+
+
+    <!--
+    <string name="notEmptyBrand">Falta la marca</string>
+    <string name="notEmptyName">Falta el nombre</string>
+    <string name="notEmptyDesc">Falta la descripción</string>
+    <string name="notEmptyWgt">Falta el peso</string>
+    <string name="notEmptyPrice">Falta el precio</string>
+    <string name="notSelectedStatus">Falta estado</string>
+    <string name="notSelectedDelivry">Falta envío</string>
+    <string name="notSelectedCateg">Falta categoría</string>
+    -->
+
+    <!-- Registration error messages -->
+    <string name="signUpEmailErMsg">It seems like you forgot to fill in your email!</string>
+    <string name="signUpPasswordErMsg">It seems like you forgot to fill in your password!</string>
+    <string name="signUpConfirmPasswordErMsg">It seems like you forgot to fill in your confirmation password!</string>
+    <string name="signUpPasswordNotMatchErMsg">Oops, the passwords do not match!</string>
 
 </resources>
