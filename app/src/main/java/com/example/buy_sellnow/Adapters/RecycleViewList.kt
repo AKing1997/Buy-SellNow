@@ -18,10 +18,10 @@ import com.example.buy_sellnow.R
 import kotlin.math.roundToInt
 
 class RecycleViewList(
-    listas: ArrayList<GridViewProduct>,
+    listas: ArrayList<Product>,
     context: Context?,
 ) : RecyclerView.Adapter<RecycleViewList.ViewHolder>() {
-    var listas: ArrayList<GridViewProduct> = listas;
+    var listas: ArrayList<Product> = listas;
     var context: Context? = context;
     // Return cantidad de items en el recycler/lista
     override fun getItemCount(): Int {
@@ -31,7 +31,7 @@ class RecycleViewList(
     //Asociar la información que queremos mostrar en el item list
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.product_price_card_promo.setText(listas[position].precio);
-        holder.product_title_card_promo.setText(listas[position].productTitle)
+        holder.product_title_card_promo.setText(listas[position].tituloDeProducto)
     }
 
     //Devueve el item que voy a mostrar en el recycler

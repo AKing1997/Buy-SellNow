@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import com.example.buy_sellnow.Model.GridViewProduct
+import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
 
 // on below line we are creating an
@@ -13,7 +14,7 @@ import com.example.buy_sellnow.R
 internal class ProductGridViewAdapter(
     // on below line we are creating two
     // variables for course list and context
-    private val productList: ArrayList<GridViewProduct>,
+    private val productList: ArrayList<Product>,
     private val context: Context
 ) :
     BaseAdapter() {
@@ -62,16 +63,16 @@ internal class ProductGridViewAdapter(
         product_fav_btn_card = view!!.findViewById(R.id.product_fav_btn_card);
         product_img_card = view!!.findViewById(R.id.product_img_card);
         // on below line we are setting image for our course image view.
-        product_price_card.setText(productList.get(position).precio);
+        product_price_card.setText(productList.get(position).precio + "€");
         // on below line we are setting text in our course text view.
-        product_title_card.setText(productList.get(position).productTitle);
+        product_title_card.setText(productList.get(position).tituloDeProducto);
         // at last we are returning our convert view.
 
         var cardView: CardView = view.findViewById(R.id.card_sell);
         cardView.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View?) {
                 Toast.makeText(
-                    view.context, productList[position].productTitle + " selected",
+                    view.context, productList[position].tituloDeProducto + " selected",
                     Toast.LENGTH_SHORT
                 ).show()
             }
