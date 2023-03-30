@@ -90,5 +90,6 @@
     <string name="signUpPasswordErMsg">It seems like you forgot to fill in your password!</string>
     <string name="signUpConfirmPasswordErMsg">It seems like you forgot to fill in your confirmation password!</string>
     <string name="signUpPasswordNotMatchErMsg">Oops, the passwords do not match!</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>
