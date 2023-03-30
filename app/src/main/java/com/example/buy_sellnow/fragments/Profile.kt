@@ -2,26 +2,18 @@ package com.example.buy_sellnow.fragments
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.buy_sellnow.Activity.AddProduct
-import com.example.buy_sellnow.Adapters.ImageRecycleView
-import com.example.buy_sellnow.Adapters.RecycleViewList
 import com.example.buy_sellnow.Login
-import com.example.buy_sellnow.MainActivity
 import com.example.buy_sellnow.Model.GridViewProduct
 import com.example.buy_sellnow.R
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.tasks.OnCompleteListener
 
 
 class Profile(): Fragment() {
