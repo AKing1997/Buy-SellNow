@@ -85,19 +85,22 @@ class AddProduct : AppCompatActivity() {
         var addProductCategoriSpinnerSelectedBol: Boolean = false;
     }
 
-    val pickMultipleMedia =
-        registerForActivityResult(PickMultipleVisualMedia(maxImage- imageUris.size)) { uris ->
-            if (uris.isNotEmpty()) {
-                /*for (uri in uris){
-                    val bitmap = uriToBitmap(uri, contentResolver)
-                    bitmap?.let { imageUris.add(it) };
-                }*/
-                imageUris.addAll(uris);
-                adapterImage();
-            } else {
-                Log.d("PhotoPicker", "No media selected")
+        private fun pickImage(){
+            val pickMultipleMedia = registerForActivityResult(PickMultipleVisualMedia(maxImage- imageUris.size)) { uris ->
+                if (uris.isNotEmpty()) {
+                    /*for (uri in uris){
+                        val bitmap = uriToBitmap(uri, contentResolver)
+                        bitmap?.let { imageUris.add(it) };
+                    }*/
+                    imageUris.addAll(uris);
+                    adapterImage();
+                } else {
+                    Log.d("PhotoPicker", "No media selected")
+                }
             }
+            pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly ));
         }
+
 
     private fun validateForm(): Boolean {
         editTextAddProductNameBol = editTextAddProductName.text.isNotEmpty();
@@ -190,8 +193,7 @@ class AddProduct : AppCompatActivity() {
 
         addProductGallaryBtn.setOnClickListener {
             if (isExternalPermissionGranted()) {
-                pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly ));
-
+                pickImage();
             } else {
                 // Farem una petició de permisos
                 ActivityCompat.requestPermissions(
