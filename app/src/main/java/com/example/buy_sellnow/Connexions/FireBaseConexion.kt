@@ -25,7 +25,7 @@ class FireBaseConexion {
      */
     private fun getProductReference() {
         mDatabase =
-            FirebaseDatabase.getInstance().getReference("Productos");
+            FirebaseDatabase.getInstance("https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Productos");
     }
 
     fun createProduct(product: Product){
