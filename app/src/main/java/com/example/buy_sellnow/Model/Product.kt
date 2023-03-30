@@ -21,6 +21,6 @@ data class Product(
     var infoDeProducto: String,
     var status: Status,
     var estadoDeProducto: ProductStatus,
-    var dilevery: Boolean,
+    var delivery: Boolean,
     var userId: String,
 )

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -15,7 +16,9 @@ import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.activity.result.contract.ActivityResultContracts.PickMultipleVisualMedia
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -23,10 +26,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.buy_sellnow.Adapters.ImageRecycleView
+import com.example.buy_sellnow.Connexions.FireBaseConexion
+import com.example.buy_sellnow.Model.Enum.ProductStatus
+import com.example.buy_sellnow.Model.Enum.Status
+import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.FileNotFoundException
+import java.time.LocalDateTime
+import java.util.*
 
 class AddProduct : AppCompatActivity() {
     companion object {
@@ -121,6 +130,7 @@ class AddProduct : AppCompatActivity() {
                 addProductCategoriSpinnerSelectedBol);
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
@@ -158,6 +168,33 @@ class AddProduct : AppCompatActivity() {
                 showErrorMsg();
             }else{
                 showErrorMsg();
+                var conexion: FireBaseConexion =  FireBaseConexion();
+                var imageUrls: ArrayList<String> = conexion.uploadImages(imageUris);
+
+                Log.i("Ankit12", imageUrls.toString())
+                val date = LocalDateTime.now();
+
+                var product = Product(
+                    UUID.randomUUID().toString(),
+                    editTextAddProductName.text.toString(),
+                    addProductCategoriSpinnerSelected,
+                    "",
+                    editTextAddProductDescription.text.toString(),
+                    editTextAddProductPrice.text.toString(),
+                    editTextAddProductWeight.text.toString(),
+                    "", date.toString(),
+                    "",
+                    imageUrls,
+                    "",
+                    editTextAddProductBrand.text.toString(),
+                    "0",
+                    "",
+                    Status.Activeted,
+                    ProductStatus.valueOf(productStatusSpinnerSelected),
+                    true,
+                    "");
+
+                conexion.createProduct(product);
             }
         }
 
