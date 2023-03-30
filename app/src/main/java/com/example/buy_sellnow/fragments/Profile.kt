@@ -43,68 +43,10 @@ class Profile(): Fragment() {
         logOutBtn.setOnClickListener {
             signOut(view);
         }
-        val product1 = GridViewProduct(
-            "P001",
-            "Reloj de pulsera para mujer",
-            "https://example.com/images/product1.jpg",
-            true,
-            "39.99"
-        )
 
-        val product2 = GridViewProduct(
-            "P002",
-            "Zapatillas deportivas para hombre",
-            "https://example.com/images/product2.jpg",
-            false,
-            "69.99"
-        )
-
-        val product3 = GridViewProduct(
-            "P003",
-            "Laptop de alta gama",
-            "https://example.com/images/product3.jpg",
-            true,
-            "1299.99"
-        )
-
-        val product4 = GridViewProduct(
-            "P004",
-            "Set de cuchillos de cocina",
-            "https://example.com/images/product4.jpg",
-            true,
-            "79.99"
-        )
-
-        val product5 = GridViewProduct(
-            "P005",
-            "Libro de cocina vegetariana",
-            "https://example.com/images/product5.jpg",
-            false,
-            "29.99"
-        )
-
-        val product6 = GridViewProduct(
-            "P006",
-            "Mochila de senderismo",
-            "https://example.com/images/product6.jpg",
-            true,
-            "89.99"
-        )
-        productLis.add(product1);
-        productLis.add(product2);
-        productLis.add(product3);
-        productLis.add(product4);
-        productLis.add(product5);
-        productLis.add(product6);
-        for (product in productLis) {
-            product.precio = product.precio + "€";
-            if (product.productTitle.length > 13) {
-                product.productTitle = product.productTitle.substring(0, 13);
-            }
-        }
-        prom_list_view.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
-        val adapter : RecycleViewList = RecycleViewList(productLis, context);
-        prom_list_view.adapter = adapter;
+        //prom_list_view.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false);
+        //val adapter : RecycleViewList = RecycleViewList(productLis, context);
+        //prom_list_view.adapter = adapter;
         return view;
     }
 
