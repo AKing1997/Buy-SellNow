@@ -23,13 +23,13 @@ class FireBaseConexion {
      *
      * @Return DatabaseReference
      */
-    private fun getProductReference() {
+    private fun getProductReference(reference: String) {
         mDatabase =
-            FirebaseDatabase.getInstance().getReference("Productos");
+            FirebaseDatabase.getInstance("https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app").getReference(reference);
     }
 
     fun createProduct(product: Product){
-        this.getProductReference()
+        this.getProductReference("Productos")
         mDatabase!!.child(product.productId.toString()).setValue(product);
     }
 
