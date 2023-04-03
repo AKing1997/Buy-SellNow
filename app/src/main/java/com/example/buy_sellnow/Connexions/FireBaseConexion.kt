@@ -28,8 +28,10 @@ class FireBaseConexion {
             FirebaseDatabase.getInstance("https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app").getReference(reference);
     }
 
-    fun createProduct(product: Product){
+    fun createProduct(product: Product, imageUris: ArrayList<Uri>){
         this.getProductReference("Productos")
+        var imageUrls: ArrayList<String> = uploadImages(imageUris)
+        product.image = imageUrls
         mDatabase!!.child(product.productId.toString()).setValue(product);
     }
 
@@ -38,10 +40,10 @@ class FireBaseConexion {
         storage = Firebase.storage
         for(image in images){
             var storageRef = storage.reference.child("Productos ")
-            var imageRef = storageRef.child(image.toString());
-            var uploadImage = imageRef.putFile(image);
+            //var imageRef = storageRef.child(image.toString());
+            var uploadImage = storageRef.putFile(image);
             uploadImage.addOnSuccessListener{
-                imageRef.downloadUrl.addOnCompleteListener {
+                storageRef.downloadUrl.addOnCompleteListener {
                     if(it.isSuccessful){
                         uri.add(it.toString());
                     }

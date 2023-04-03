@@ -36,6 +36,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.FileNotFoundException
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddProduct : AppCompatActivity() {
     companion object {
@@ -165,9 +166,7 @@ class AddProduct : AppCompatActivity() {
             }else{
                 showErrorMsg();
                 var conexion: FireBaseConexion =  FireBaseConexion();
-                var imageUrls: ArrayList<String> = conexion.uploadImages(imageUris);
 
-                Log.i("Ankit12", imageUrls.toString())
                 val date = LocalDateTime.now();
 
                 var product = Product(
@@ -180,7 +179,7 @@ class AddProduct : AppCompatActivity() {
                     editTextAddProductWeight.text.toString(),
                     "", date.toString(),
                     "",
-                    imageUrls,
+                    ArrayList<String>(),
                     "",
                     editTextAddProductBrand.text.toString(),
                     "0",
@@ -190,7 +189,7 @@ class AddProduct : AppCompatActivity() {
                     true,
                     "");
 
-                conexion.createProduct(product);
+                conexion.createProduct(product, imageUris);
             }
         }
 
