@@ -186,7 +186,7 @@ class AddProduct : AppCompatActivity() {
                     "0",
                     "",
                     Status.Activeted,
-                    ProductStatus.valueOf(productStatusSpinnerSelected),
+                    ProductStatus.BuenEstado,
                     true,
                     "");
 
