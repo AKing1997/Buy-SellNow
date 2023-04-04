@@ -201,7 +201,6 @@ class AddProduct : AppCompatActivity() {
 
         addProductGallaryPick.setOnClickListener {
             maxImage = (5 - imageUris.size)
-            Toast.makeText(this, maxImage.toString(), Toast.LENGTH_SHORT).show()
             mediaSelecterCons.visibility = View.VISIBLE
         }
 
