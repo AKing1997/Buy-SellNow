@@ -65,5 +65,7 @@
     <string name="signUpPasswordErMsg">¡Se ha oblidat d’omplir la contrasenya!</string>
     <string name="signUpConfirmPasswordErMsg">¡Se ha oblidat d’omplir la contrasenya de confirmació!</string>
     <string name="signUpPasswordNotMatchErMsg">¡Ups, les contrasenyes no coincideixen!</string>
+    <string name="minimamImage">Selecciona al menos un imagen</string>
+    <string name="location_required">La ubicació és obligatòria. Si us plau, introdueix-la de nou.</string>
 
 </resources>

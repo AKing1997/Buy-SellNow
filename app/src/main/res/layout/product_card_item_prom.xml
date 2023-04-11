@@ -24,6 +24,7 @@
             android:id="@+id/product_img_card_promo"
             android:layout_width="match_parent"
             android:layout_height="78dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

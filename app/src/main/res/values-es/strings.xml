@@ -68,5 +68,7 @@
     <string name="signUpPasswordErMsg">¡Se ha olvidado de completar la contraseña! La contraseña debe tener al menos 6 caracteres.</string>
     <string name="signUpConfirmPasswordErMsg">¡Se ha olvidado de completar la contraseña de confirmación! La contraseña debe tener al menos 6 caracteres.</string>
     <string name="signUpPasswordNotMatchErMsg">¡Oops, las contraseñas no coinciden!</string>
+    <string name="minimamImage">Selecciona al menos un imagen</string>
+    <string name="location_required">La ubicación es obligatoria. Por favor, introdúcela de nuevo.</string>
 
 </resources>

@@ -2,7 +2,9 @@ package com.example.buy_sellnow.Activity
 
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -40,6 +42,7 @@ import kotlin.collections.ArrayList
 
 class AddProduct : AppCompatActivity() {
     companion object {
+        private lateinit var preferences: SharedPreferences;
         var imageUris: ArrayList<Uri> = ArrayList();
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1001;
         private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002;
@@ -63,8 +66,8 @@ class AddProduct : AppCompatActivity() {
         lateinit var addProductDetailPickConst: ConstraintLayout;
 
         /* Variables para spinner item selected */
-        lateinit var productStatusSpinnerSelected: String;
-        lateinit var addProductDeliverySpinnerSelected: String;
+        var productStatusSpinnerSelected: Int = 0;
+        var addProductDeliverySpinnerSelected: Int = 0;
         lateinit var addProductCategoriSpinnerSelected: String;
 
         /* Form input variables */
@@ -75,6 +78,7 @@ class AddProduct : AppCompatActivity() {
         lateinit var editTextAddProductPrice: EditText;
 
         /* text view variables error message */
+        lateinit var editTextAddProductImageErMsg: TextView;
         lateinit var editTextAddProductBrandErMsg: TextView;
         lateinit var editTextAddProductNameErMsg: TextView;
         lateinit var editTextAddProductDescriptionErMsg: TextView;
@@ -85,6 +89,7 @@ class AddProduct : AppCompatActivity() {
         lateinit var addProductCategoriSpinnerErMsg: TextView;
 
         /* Validation variable boolean for form*/
+        var imageMinimamBol: Boolean = false;
         var editTextAddProductNameBol: Boolean = false;
         var editTextAddProductBrandBol: Boolean = false;
         var editTextAddProductDescriptionBol: Boolean = false;
@@ -109,15 +114,17 @@ class AddProduct : AppCompatActivity() {
 
 
     private fun validateForm(): Boolean {
+        imageMinimamBol = imageUris.size>0
         editTextAddProductNameBol = editTextAddProductName.text.isNotEmpty();
         editTextAddProductBrandBol = editTextAddProductBrand.text.isNotEmpty();
         editTextAddProductDescriptionBol = editTextAddProductDescription.text.isNotEmpty();
         editTextAddProductWeightBol = editTextAddProductWeight.text.isNotEmpty();
         editTextAddProductPriceBol = editTextAddProductPrice.text.isNotEmpty();
-        productStatusSpinnerSelectedBol = !(productStatusSpinnerSelected.contains('!'))
-        addProductDeliverySpinnerSelectedBol = !(addProductDeliverySpinnerSelected.contains('!'))
+        productStatusSpinnerSelectedBol = (productStatusSpinnerSelected>0)
+        addProductDeliverySpinnerSelectedBol = (addProductDeliverySpinnerSelected>0)
         addProductCategoriSpinnerSelectedBol = !(addProductCategoriSpinnerSelected.contains('!'))
-        return (editTextAddProductBrandBol &&
+        return (imageMinimamBol &&
+                editTextAddProductBrandBol &&
                 editTextAddProductNameBol &&
                 editTextAddProductDescriptionBol &&
                 editTextAddProductWeightBol &&
@@ -131,6 +138,7 @@ class AddProduct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
+        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
         productStatusSpinner = findViewById(R.id.productStatusSpinner);
         addProductDeliverySpinner = findViewById(R.id.addProductDeliverySpinner);
         addProductCategoriSpinner = findViewById(R.id.addProductCategoriSpinner);
@@ -138,6 +146,7 @@ class AddProduct : AppCompatActivity() {
         mediaSelecterCons = findViewById(R.id.mediaSelecterCons);
         addProductCameraBtn = findViewById(R.id.addProductCameraBtn);
         addProductGallaryBtn = findViewById(R.id.addProductGallaryBtn);
+        editTextAddProductImageErMsg = findViewById(R.id.editTextAddProductImageErMsg)
         addProductGallaryPick = findViewById(R.id.addProductGallaryBtnPick);
         addProductBottomNav = findViewById(R.id.addProductBottomNav);
         addProductImageViewConst = findViewById(R.id.addProductImageViewConst);
@@ -168,7 +177,7 @@ class AddProduct : AppCompatActivity() {
                 var conexion: FireBaseConexion =  FireBaseConexion();
 
                 val date = LocalDateTime.now();
-
+                val userId = preferences.getString("userId", null);
                 var product = Product(
                     UUID.randomUUID().toString(),
                     editTextAddProductName.text.toString(),
@@ -185,11 +194,17 @@ class AddProduct : AppCompatActivity() {
                     "0",
                     "",
                     Status.Activeted,
-                    ProductStatus.BuenEstado,
-                    true,
-                    "");
+
+                    (if(1== productStatusSpinnerSelected) ProductStatus.Nuevo else
+                        if(2== productStatusSpinnerSelected) ProductStatus.BuenEstado else
+                            if(3== productStatusSpinnerSelected) ProductStatus.Bien else
+                                if(4== productStatusSpinnerSelected) ProductStatus.Mejorar else TODO()) as ProductStatus,
+                    addProductDeliverySpinnerSelected==1,
+                    userId!!);
 
                 conexion.createProduct(product, imageUris);
+                resetForm();
+                onBackPressed();
             }
         }
 
@@ -253,7 +268,17 @@ class AddProduct : AppCompatActivity() {
         );
     }
 
+    private fun resetForm(){
+        editTextAddProductName.text.clear()
+        editTextAddProductDescription.text.clear()
+        editTextAddProductPrice.text.clear()
+        editTextAddProductWeight.text.clear()
+        editTextAddProductBrand.text.clear()
+        imageUris.clear();
+    }
+
     private fun showErrorMsg() {
+        editTextAddProductImageErMsg.visibility = if (imageMinimamBol) View.GONE else View.VISIBLE
         editTextAddProductBrandErMsg.visibility = if (editTextAddProductBrandBol) View.GONE else View.VISIBLE
         editTextAddProductNameErMsg.visibility = if (editTextAddProductNameBol) View.GONE else View.VISIBLE
         editTextAddProductDescriptionErMsg.visibility = if (editTextAddProductDescriptionBol) View.GONE else View.VISIBLE
@@ -286,8 +311,8 @@ class AddProduct : AppCompatActivity() {
                     val item = parent!!.getItemAtPosition(position).toString();
                     val selectedSpinnerId = parent?.id ?: return
                     when (selectedSpinnerId) {
-                        R.id.productStatusSpinner -> {productStatusSpinnerSelected = item}
-                        R.id.addProductDeliverySpinner -> {addProductDeliverySpinnerSelected = item}
+                        R.id.productStatusSpinner -> {productStatusSpinnerSelected = position}
+                        R.id.addProductDeliverySpinner -> {addProductDeliverySpinnerSelected = position}
                         R.id.addProductCategoriSpinner -> {addProductCategoriSpinnerSelected = item}
                     }
                 }

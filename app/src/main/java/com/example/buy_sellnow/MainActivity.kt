@@ -1,11 +1,15 @@
 package com.example.buy_sellnow
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.buy_sellnow.Activity.AddProduct
+import com.example.buy_sellnow.Activity.EditUserDetail
+import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.fragments.Chat
 import com.example.buy_sellnow.fragments.Favorite
 import com.example.buy_sellnow.fragments.Home
@@ -14,7 +18,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var preferences: SharedPreferences;
+    private  lateinit var redrige: Intent
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
+        val userId = preferences.getString("userId", null).toString()
+        if(userId!=null){
+            val conexion: FireBaseConexion = FireBaseConexion()
+            conexion.getUserById(userId){
+                if(it == null){
+                    redrige = Intent(this, EditUserDetail::class.java);
+                    startActivity(redrige);
+                }
+            }
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         defaultPage();
@@ -22,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView);
         val addProduct: FloatingActionButton = findViewById(R.id.addProduct);
         addProduct.setOnClickListener {
-            var redrige = Intent(this, AddProduct::class.java);
+            redrige = Intent(this, AddProduct::class.java);
             startActivity(redrige);
         }
         bottomNav.setOnItemSelectedListener { item: MenuItem ->

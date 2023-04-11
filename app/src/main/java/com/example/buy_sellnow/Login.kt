@@ -17,9 +17,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class Login : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences ;
@@ -81,9 +84,9 @@ class Login : AppCompatActivity() {
                 if (task.isSuccessful) {
                     startActivity(redrige);
                     val user = auth.currentUser
-                    editPerferences?.putString("email", user?.email)
-                    editPerferences?.putString("sessionPlatform", sessionPlatform.EMAIL.name)
-                    editPerferences?.apply()
+                    editPerferences.putString("email", user?.email)
+                    editPerferences.putString("sessionPlatform", sessionPlatform.EMAIL.name)
+                    editPerferences.apply()
                     Toast.makeText(this, user?.email, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, task.exception?.message.toString(), Toast.LENGTH_SHORT)
@@ -91,6 +94,19 @@ class Login : AppCompatActivity() {
                     Log.i("SignUp", task.exception?.message.toString())
                 }
             }
+    }
+
+    private fun getToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            editPerferences.putString("tokenNotify", token)
+            editPerferences.apply()
+        })
     }
 
     fun singInGoogle() {
@@ -103,7 +119,9 @@ class Login : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 val user = auth.currentUser
+                getToken()
                 editPerferences?.putString("email", user?.email)
+                editPerferences?.putString("userId", user?.uid)
                 editPerferences?.putString("sessionPlatform", sessionPlatform.GOOGLE.name)
                 editPerferences?.apply()
                 startActivity(redrige);
