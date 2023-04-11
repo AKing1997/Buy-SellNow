@@ -14,6 +14,7 @@ class Chat : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_chat, container, false);
+        //38:19
         return view;
     }
 }

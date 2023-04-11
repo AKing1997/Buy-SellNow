@@ -6,6 +6,7 @@ import com.example.buy_sellnow.R
 
 class ChatDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        //1:50
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_detail)
     }
