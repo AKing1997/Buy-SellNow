@@ -38,6 +38,7 @@ class ChatDetail : AppCompatActivity() {
     lateinit var chatDetailSendBtn: ImageView
     var chat: Chat = Chat()
     override fun onCreate(savedInstanceState: Bundle?) {
+        //1:50
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_detail)
 
