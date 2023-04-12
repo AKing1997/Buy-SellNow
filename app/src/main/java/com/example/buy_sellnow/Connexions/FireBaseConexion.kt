@@ -52,6 +52,12 @@ class FireBaseConexion {
     fun updateProduct(product: Product) {
         mDatabase = this.getReference("Productos")
         mDatabase!!.child(product.productId.toString()).setValue(product);
+        Log.i("pro12", "Despuede edit")
+    }
+
+    fun deleteProduct(id: String){
+        mDatabase = this.getReference("Productos")
+        mDatabase!!.child(id).removeValue();
     }
 
     fun updateChat(chat: Chat){
