@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.buy_sellnow.Model.GridViewProduct
 import com.example.buy_sellnow.Adapters.ProductGridViewAdapter
+import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
+import com.google.firebase.ktx.Firebase
 
 
 class Favorite : Fragment() {
@@ -23,7 +25,8 @@ class Favorite : Fragment() {
         var view = inflater.inflate(R.layout.fragment_favorite, container, false);
         var fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view);
         var productLis = ArrayList<Product>();
-
+        val connexion: FireBaseConexion = FireBaseConexion();
+        //connexion.
         val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context);
         fav_grid_view.adapter = productGridViewAdapter;
         fav_grid_view.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->

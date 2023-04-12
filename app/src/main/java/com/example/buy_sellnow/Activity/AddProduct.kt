@@ -69,6 +69,7 @@ class AddProduct : AppCompatActivity() {
         var productStatusSpinnerSelected: Int = 0;
         var addProductDeliverySpinnerSelected: Int = 0;
         lateinit var addProductCategoriSpinnerSelected: String;
+        var categoriaId: Int = 0
 
         /* Form input variables */
         lateinit var editTextAddProductBrand: EditText;
@@ -184,8 +185,8 @@ class AddProduct : AppCompatActivity() {
                     addProductCategoriSpinnerSelected,
                     "",
                     editTextAddProductDescription.text.toString(),
-                    editTextAddProductPrice.text.toString(),
-                    editTextAddProductWeight.text.toString(),
+                    editTextAddProductPrice.text.toString().toDouble(),
+                    editTextAddProductWeight.text.toString().toDouble(),
                     "", date.toString(),
                     "",
                     ArrayList<String>(),
@@ -200,7 +201,11 @@ class AddProduct : AppCompatActivity() {
                             if(3== productStatusSpinnerSelected) ProductStatus.Bien else
                                 if(4== productStatusSpinnerSelected) ProductStatus.Mejorar else TODO()) as ProductStatus,
                     addProductDeliverySpinnerSelected==1,
-                    userId!!);
+                    userId!!,
+                    productStatusSpinnerSelected,
+                    categoriaId
+                );
+
 
                 conexion.createProduct(product, imageUris);
                 resetForm();
@@ -313,7 +318,9 @@ class AddProduct : AppCompatActivity() {
                     when (selectedSpinnerId) {
                         R.id.productStatusSpinner -> {productStatusSpinnerSelected = position}
                         R.id.addProductDeliverySpinner -> {addProductDeliverySpinnerSelected = position}
-                        R.id.addProductCategoriSpinner -> {addProductCategoriSpinnerSelected = item}
+                        R.id.addProductCategoriSpinner -> {addProductCategoriSpinnerSelected = item
+                            categoriaId=position
+                        }
                     }
                 }
 

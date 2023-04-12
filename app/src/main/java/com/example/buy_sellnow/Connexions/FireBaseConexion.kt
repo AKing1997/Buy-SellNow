@@ -48,6 +48,11 @@ class FireBaseConexion {
             mDatabase!!.child(product.productId.toString()).setValue(product);
         }
     }
+    // UPDATE PRODUCT
+    fun updateProduct(product: Product) {
+        mDatabase = this.getReference("Productos")
+        mDatabase!!.child(product.productId.toString()).setValue(product);
+    }
 
     fun updateChat(chat: Chat){
         mDatabase = this.getReference("Chats")
@@ -204,12 +209,27 @@ class FireBaseConexion {
         mDatabase!!.child(userId).child(productId).removeValue()
     }
 
-    fun getFavorites(productId: String, userId: String, callback: (Boolean?) -> Unit) {
+    fun getFavoriteByProductAndUserId(productId: String, userId: String, callback: (Boolean?) -> Unit) {
         mDatabase = this.getReference("favorites");
         mDatabase!!.child(userId).child(productId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val isFavorite = dataSnapshot.exists() && dataSnapshot.getValue(Boolean::class.java) == true
                 callback(isFavorite)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
+
+    fun getAllFavoritesByUserId(userId: String, callback: (ArrayList<String>?) -> Unit){
+        mDatabase = this.getReference("favorites");
+        mDatabase!!.child(userId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (pro in dataSnapshot.children) {
+                    Log.i("favoritos: ",pro.getValue().toString())
+                }
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 callback(null)

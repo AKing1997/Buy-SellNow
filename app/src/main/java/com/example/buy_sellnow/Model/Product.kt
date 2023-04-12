@@ -22,7 +22,9 @@ data class Product(
     var status: Status = Status.Activeted,
     var estadoDeProducto: ProductStatus = ProductStatus.Nuevo,
     var delivery: Boolean = false,
-    var userId: String = ""
+    var userId: String = "",
+    var estado: Int = 1,
+    var categoriaId: Int = 1
 ) {
-    constructor() : this("", "", "", "", "", "", "", "", "", "", ArrayList(), "", "", "", "", Status.Activeted, ProductStatus.Nuevo, false, "")
+    constructor() : this("", "", "", "", "", "", "", "", "", "", ArrayList(), "", "", "", "", Status.Activeted, ProductStatus.Nuevo, false, "",0,0)
 }

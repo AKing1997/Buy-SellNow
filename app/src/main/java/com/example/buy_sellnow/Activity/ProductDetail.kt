@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.firebase.auth.FirebaseAuth
 
 class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
     lateinit var productDetail : MaterialToolbar
@@ -53,6 +55,9 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         /* Image recycleView */
         lateinit var adapter: ImageRecycleView;
         lateinit var productDetailRecycleView: RecyclerView;
+
+        val conexion: FireBaseConexion = FireBaseConexion();
+        lateinit var dPFavBtn: ToggleButton
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +69,21 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
         val userId = preferences.getString("userId", null).toString()
         val productId = intent.getStringExtra("productId")
+        dPFavBtn = findViewById(R.id.dPFavBtn)
+        // Set initial state of button based on Firebase database
+        conexion.getFavoriteByProductAndUserId(productId!!, userId) { isFavorite ->
+            dPFavBtn.isChecked = isFavorite == true
+        }
 
+
+        // Toggle button state and update Firebase database when clicked
+        dPFavBtn.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                conexion.addTFavorite(productId, userId)
+            } else {
+                conexion.rmFFavorite(productId, userId)
+            }
+        }
         detail_total_sells = findViewById(R.id.detail_total_sells)
         detail_username = findViewById(R.id.detail_username)
         productDetail = findViewById(R.id.productDetail)
@@ -87,7 +106,6 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
             }
         }
         productDetailRecycleView = findViewById(R.id.productDetailRecycleView)
-        val conexion: FireBaseConexion = FireBaseConexion();
         productDetail.setNavigationOnClickListener {
             onBackPressed();
         }

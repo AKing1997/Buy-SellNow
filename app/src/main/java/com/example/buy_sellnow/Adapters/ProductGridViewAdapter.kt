@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
+import com.example.buy_sellnow.Activity.EditProduct
 import com.example.buy_sellnow.Activity.FullScreenImageView
 import com.example.buy_sellnow.Activity.ProductDetail
 import com.example.buy_sellnow.Connexions.FireBaseConexion
@@ -23,12 +24,14 @@ internal class ProductGridViewAdapter(
     private val productList: ArrayList<Product>,
     private val context: Context
 ) : BaseAdapter() {
-
+    val userId = FirebaseAuth.getInstance().currentUser!!.uid
+    private lateinit var redrige: Intent;
     private var layoutInflater: LayoutInflater? = null
     private lateinit var product_title_card: TextView
     private lateinit var product_price_card: TextView
     private lateinit var product_img_card: ImageView
     private lateinit var product_fav_btn_card: ToggleButton
+    private lateinit var editBtn: ImageButton
     private var isButtonChecked: Boolean by Delegates.observable(true) { _, _, newState ->
         product_fav_btn_card.isChecked = newState
     }
@@ -60,29 +63,18 @@ internal class ProductGridViewAdapter(
         product_title_card = view.findViewById(R.id.product_title_card)
         product_fav_btn_card = view.findViewById(R.id.product_fav_btn_card)
         product_img_card = view.findViewById(R.id.product_img_card)
+        editBtn = view.findViewById(R.id.editBtn)
 
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val conexion: FireBaseConexion = FireBaseConexion()
-
-        // Set initial state of button based on Firebase database
-        productList[position].productId?.let { productId ->
-            conexion.getFavorites(productId, userId) { isFavorite ->
-                isButtonChecked = isFavorite == true
-            }
-        }
-
-        // Toggle button state and update Firebase database when clicked
-        product_fav_btn_card.setOnCheckedChangeListener { _, isChecked ->
-            isButtonChecked = isChecked
-            productList[position].productId?.let { productId ->
-                if (isChecked) {
-                    conexion.addTFavorite(productId, userId)
-                } else {
-                    conexion.rmFFavorite(productId, userId)
+        if(productList[position].userId.equals(userId)){
+            editBtn.visibility=View.VISIBLE;
+            editBtn.setOnClickListener (object:View.OnClickListener{
+                override fun onClick(v: View?) {
+                    redrige = Intent(context, EditProduct::class.java)
+                    redrige.putExtra("productId", productList[position].productId)
+                    context.startActivity(redrige)
                 }
-            }
+            })
         }
-
         Glide.with(context!!).load(productList[position].image[0]).into(product_img_card)
         product_price_card.text = "${productList[position].precio} €"
         product_title_card.text = productList[position].tituloDeProducto
@@ -90,7 +82,7 @@ internal class ProductGridViewAdapter(
         val cardView: CardView = view.findViewById(R.id.card_sell)
         cardView.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View?) {
-                val redrige = Intent(context, ProductDetail::class.java)
+                redrige = Intent(context, ProductDetail::class.java)
                 redrige.putExtra("productId", productList[position].productId)
                 context.startActivity(redrige)
             }
