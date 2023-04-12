@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -22,13 +23,11 @@ import kotlin.collections.ArrayList
 class EditProduct : AppCompatActivity() {
     companion object {
         private lateinit var preferences: SharedPreferences
-        lateinit var productStatusSpinner: Spinner
+        lateinit var editproductStatusSpinner: Spinner
         lateinit var editProductDeliverySpinner: Spinner
         lateinit var editProductCategoriSpinner: Spinner
 
-        lateinit var editProductCameraBtn: Button
-        lateinit var editProductGallaryBtn: Button
-        lateinit var editProductGallaryPick: Button
+        lateinit var deleteProductBtnEdit: Button
 
         /* Layouts etc*/
         lateinit var mediaSelecterCons: ConstraintLayout
@@ -40,6 +39,7 @@ class EditProduct : AppCompatActivity() {
         var productStatusSpinnerSelected: Int = 0
         var editProductDeliverySpinnerSelected: Int = 0
         lateinit var editProductCategoriSpinnerSelected: String
+        var categoriaId: Int = 0
 
         /* Form input variables */
         lateinit var editTexteditProductBrand: EditText
@@ -98,19 +98,24 @@ class EditProduct : AppCompatActivity() {
         setContentView(R.layout.activity_edit_product)
         productId = intent.getStringExtra("productId").toString();
         getProduct()
-        productStatusSpinner = findViewById(R.id.productStatusSpinner)
+        editproductStatusSpinner = findViewById(R.id.editproductStatusSpinner)
         editProductDeliverySpinner = findViewById(R.id.editProductDeliverySpinner)
         editProductCategoriSpinner = findViewById(R.id.editProductCategoriSpinner)
         editProductToolbar = findViewById(R.id.editProductToolbar)
         editProductBottomNav = findViewById(R.id.editProductBottomNav)
         val editProductBtn: Button = findViewById(R.id.editProductBtn)
+        deleteProductBtnEdit = findViewById(R.id.deleteProductBtnEdit)
+        deleteProductBtnEdit.setOnClickListener {
+            conexion.deleteProduct(productId)
+            onBackPressed()
+        }
         /** Variales de Error Message  **/
         editTexteditProductBrandErMsg = findViewById(R.id.editTexteditProductBrandErMsg)
         editTexteditProductNameErMsg = findViewById(R.id.editTexteditProductNameErMsg)
         editTexteditProductDescriptionErMsg = findViewById(R.id.editTexteditProductDescriptionErMsg)
         editTexteditProductWeightErMsg = findViewById(R.id.editTexteditProductWeightErMsg)
         editTexteditProductPriceErMsg = findViewById(R.id.editTexteditProductPriceErMsg)
-        productStatusSpinnerErMsg = findViewById(R.id.productStatusSpinnerErMsg)
+        productStatusSpinnerErMsg = findViewById(R.id.editproductStatusSpinnerErMsg)
         editProductDeliverySpinnerErMsg = findViewById(R.id.editProductDeliverySpinnerErMsg)
         editProductCategoriSpinnerErMsg = findViewById(R.id.editProductCategoriSpinnerErMsg)
 
@@ -123,8 +128,11 @@ class EditProduct : AppCompatActivity() {
 
         editProductBtn.setOnClickListener {
             if (!validateForm()) {
+                Log.i("pro12", "no es valido")
                 showErrorMsg()
             }else{
+                Log.i("pro12", "antest en edit")
+
                 showErrorMsg()
                 val date = LocalDateTime.now()
                 val userId = preferences.getString("userId", null)
@@ -151,9 +159,12 @@ class EditProduct : AppCompatActivity() {
                             if(3== productStatusSpinnerSelected) ProductStatus.Bien else
                                 if(4== productStatusSpinnerSelected) ProductStatus.Mejorar else TODO()),
                     editProductDeliverySpinnerSelected==1,
-                    userId!!)
-
-                conexion.updateProduct(product)
+                    userId!!,
+                    productStatusSpinnerSelected,
+                    categoriaId
+                )
+                Log.i("pro12", "antest en edit")
+                //conexion.updateProduct(product)
                 resetForm()
                 onBackPressed()
             }
@@ -164,7 +175,7 @@ class EditProduct : AppCompatActivity() {
         }
 
         getSpinnerItemSelected(
-            productStatusSpinner,
+            editproductStatusSpinner,
             resources.getStringArray(R.array.status_product_list)
         )
         getSpinnerItemSelected(
@@ -198,9 +209,9 @@ class EditProduct : AppCompatActivity() {
 
     private fun getSpinnerItemSelected(s: Spinner, array: Array<String>) {
         if (s != null) {
-            val aA = ArrayAdapter(this, android.R.layout.simple_spinner_item, array)
+            val aA = ArrayAdapter(this, android.R.layout.simple_spinner_item, array);
             aA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            s.adapter = aA
+            s.adapter = aA;
             s.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -208,17 +219,24 @@ class EditProduct : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    val item = parent!!.getItemAtPosition(position).toString()
-                    val selectedSpinnerId = parent.id ?: return
+                    val item = parent!!.getItemAtPosition(position).toString();
+                    val selectedSpinnerId = parent?.id ?: return
                     when (selectedSpinnerId) {
-                        R.id.productStatusSpinner -> {productStatusSpinnerSelected = position}
-                        R.id.editProductDeliverySpinner -> {editProductDeliverySpinnerSelected = position}
-                        R.id.editProductCategoriSpinner -> {editProductCategoriSpinnerSelected = item}
+                        R.id.editproductStatusSpinner -> {
+                            productStatusSpinnerSelected = position}
+                        R.id.editProductDeliverySpinner -> {
+                            editProductDeliverySpinnerSelected = position}
+                        R.id.editProductCategoriSpinner -> {
+                            editProductCategoriSpinnerSelected = item
+                            categoriaId =position
+                        }
                     }
                 }
+
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     TODO("Not yet implemented")
                 }
+
             }
         }
     }
@@ -235,7 +253,7 @@ class EditProduct : AppCompatActivity() {
         resources.getStringArray(R.array.delivery_list)
         resources.getStringArray(R.array.category_array_list)
 
-        productStatusSpinner.setSelection(product.estado)
+        editproductStatusSpinner.setSelection(product.estado)
         editProductDeliverySpinner.setSelection( if(product.delivery) 1 else 2)
         editProductCategoriSpinner.setSelection(product.categoriaId)
         editTexteditProductBrand.setText(product.marca)

@@ -26,7 +26,8 @@ class Favorite : Fragment() {
         var fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view);
         var productLis = ArrayList<Product>();
         val connexion: FireBaseConexion = FireBaseConexion();
-        //connexion.
+
+
         val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context);
         fav_grid_view.adapter = productGridViewAdapter;
         fav_grid_view.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
