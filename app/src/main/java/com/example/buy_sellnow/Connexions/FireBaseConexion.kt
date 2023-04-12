@@ -23,16 +23,16 @@ class FireBaseConexion {
      *
      * @Return DatabaseReference
      */
-    private fun getReference(reference: String) {
-        mDatabase =
-            FirebaseDatabase.getInstance("https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app")
-                .getReference(reference);
+    private fun getReference(reference: String): DatabaseReference {
+        return FirebaseDatabase.getInstance("https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app")
+            .getReference(reference);
     }
 
+
     fun updateUserDetaill(user: tempUser, imageUri: Uri?) {
-        this.getReference("Users");
+        mDatabase = this.getReference("Users");
         if (imageUri != null) {
-            uploadImage(imageUri) { url ->
+            uploadImage(user.userImage,imageUri) { url ->
                 user.userImage = url
                 mDatabase!!.child(user.userId).setValue(user)
             }
@@ -42,7 +42,7 @@ class FireBaseConexion {
     }
 
     fun createProduct(product: Product, imageUris: ArrayList<Uri>) {
-        this.getReference("Productos")
+        mDatabase = this.getReference("Productos")
         uploadImages(imageUris) { urls ->
             product.image = urls
             mDatabase!!.child(product.productId.toString()).setValue(product);
@@ -50,7 +50,7 @@ class FireBaseConexion {
     }
 
     fun updateChat(chat: Chat){
-        this.getReference("Chats")
+        mDatabase = this.getReference("Chats")
         mDatabase!!.child(chat.userBuyerId+"-"+chat.userSelletId).setValue(chat)
     }
 
@@ -80,7 +80,7 @@ class FireBaseConexion {
         }
     }
 
-    private fun uploadImage(image: Uri, callback: (String) -> Unit) {
+    private fun uploadImage(url:String,image: Uri, callback: (String) -> Unit) {
         val storageRef = Firebase.storage.reference.child("User")
         val imageRef = storageRef.child("${UUID.randomUUID()}.jpeg")
         val uploadTask = imageRef.putFile(image)
@@ -93,6 +93,18 @@ class FireBaseConexion {
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val downloadUri = task.result.toString()
+                if(url.isNotEmpty()) {
+                    val storage = FirebaseStorage.getInstance()
+                    val ref = storage.getReferenceFromUrl(url)
+                    ref.delete()
+                        .addOnSuccessListener {
+                            // El archivo ha sido eliminado exitosamente
+                        }
+                        .addOnFailureListener { e ->
+                            // Ocurrió un error al intentar eliminar el archivo
+                            e.message?.let { Log.e("DELETE_IMAGE_ERROR", it) }
+                        }
+                }
                 callback(downloadUri)
             }
         }.addOnFailureListener { exception ->
@@ -101,11 +113,11 @@ class FireBaseConexion {
     }
 
     fun getAllPublicacion(callback: (ArrayList<Product>) -> Unit) {
-        val products: ArrayList<Product> = ArrayList<Product>()
-        this.getReference("Productos");
-        products.clear();
+        mDatabase = this.getReference("Productos");
         mDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val products: ArrayList<Product> = ArrayList<Product>()
+                products.clear();
                 for (pro in snapshot.children) {
                     val product = pro.getValue(Product::class.java)
                     products.add(product!!);
@@ -120,7 +132,7 @@ class FireBaseConexion {
     }
 
     fun getProductById(id: String, callback: (Product) -> Unit) {
-        this.getReference("Productos");
+        mDatabase = this.getReference("Productos");
         mDatabase!!.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // if (snapshot.exists()) {
@@ -136,8 +148,27 @@ class FireBaseConexion {
         });
     }
 
+    fun getAllProductsByUserId(userId: String, callback: (ArrayList<Product>) -> Unit) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("Productos")
+        val query = mDatabase!!.orderByChild("userId").equalTo(userId)
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val products: ArrayList<Product> = ArrayList<Product>()
+                for (pro in snapshot.children) {
+                    val product = pro.getValue(Product::class.java)
+                    products.add(product!!)
+                }
+                callback(products)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.i("ERROR_FIREBASE", error.message)
+            }
+        })
+    }
+
     fun getUserById(userId: String, callback: (tempUser?) -> Unit) {
-        this.getReference("Users");
+        mDatabase = this.getReference("Users");
         mDatabase!!.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(tempUser::class.java)
@@ -150,11 +181,35 @@ class FireBaseConexion {
     }
 
     fun getChatById(chatID: String, callback: (Chat?) -> Unit) {
-        this.getReference("Chats");
+        mDatabase = this.getReference("Chats");
         mDatabase!!.child(chatID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(Chat::class.java)
                 callback(user)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
+
+    /** Get, Add & Remove Favorite product list **/
+    fun addTFavorite(productId: String, userId: String) {
+        mDatabase = this.getReference("favorites");
+        mDatabase!!.child(userId).child(productId).setValue(true)
+    }
+
+    fun rmFFavorite(productId: String, userId: String) {
+        mDatabase = this.getReference("favorites");
+        mDatabase!!.child(userId).child(productId).removeValue()
+    }
+
+    fun getFavorites(productId: String, userId: String, callback: (Boolean?) -> Unit) {
+        mDatabase = this.getReference("favorites");
+        mDatabase!!.child(userId).child(productId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val isFavorite = dataSnapshot.exists() && dataSnapshot.getValue(Boolean::class.java) == true
+                callback(isFavorite)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 callback(null)

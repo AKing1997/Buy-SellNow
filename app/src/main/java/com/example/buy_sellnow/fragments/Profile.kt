@@ -18,16 +18,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.buy_sellnow.Activity.AddProduct
+import com.example.buy_sellnow.Activity.Buy
 import com.example.buy_sellnow.Login
 import com.example.buy_sellnow.Model.GridViewProduct
 import com.example.buy_sellnow.R
 import com.example.buy_sellnow.Activity.EditUserDetail
+import com.example.buy_sellnow.Activity.Sell
 import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 
 class Profile(): Fragment() {
     companion object {
+        private lateinit var redrige: Intent
         private lateinit var googleSignInClient : GoogleSignInClient;
         /** User Text View Detail variables **/
         private lateinit var profile_user_name: TextView
@@ -35,7 +38,8 @@ class Profile(): Fragment() {
         private lateinit var profile_user_geo: TextView
         private lateinit var profile_rating_bar: RatingBar
         private lateinit var profile_user_img: ImageView
-
+        private lateinit var profile_sell_btn: Button
+        private lateinit var profile_buy_btn: Button
         private lateinit var preferences: SharedPreferences;
     }
     override fun onCreateView(
@@ -47,6 +51,17 @@ class Profile(): Fragment() {
         var prom_list_view: RecyclerView = view.findViewById(R.id.prom_list_view);
         var productLis = ArrayList<GridViewProduct>();
         val profile_config_btn: Button = view.findViewById(R.id.profile_config_btn)
+        profile_sell_btn = view.findViewById(R.id.profile_sell_btn)
+        profile_sell_btn.setOnClickListener {
+            redrige = Intent(view.context, Sell::class.java);
+            startActivity(redrige);
+        }
+
+        profile_buy_btn = view.findViewById(R.id.profile_buy_btn)
+        profile_buy_btn.setOnClickListener {
+            redrige = Intent(view.context, Buy::class.java);
+            startActivity(redrige);
+        }
         preferences = view.context.getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
         val userId = preferences.getString("userId", null).toString()
 
@@ -65,7 +80,7 @@ class Profile(): Fragment() {
         }
 
         profile_config_btn.setOnClickListener {
-            var redrige = Intent(view.context, EditUserDetail::class.java);
+            redrige = Intent(view.context, EditUserDetail::class.java);
             startActivity(redrige);
         }
 

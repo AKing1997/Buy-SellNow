@@ -63,23 +63,20 @@
             app:layout_constraintTop_toBottomOf="@+id/product_title_card"
             app:layout_constraintVertical_bias="0.5" />
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/product_fav_btn_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/product_title_card"
-            android:layout_alignParentBottom="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="4dp"
-            android:background="@android:color/transparent"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:tint="@color/primary_text"
+            android:background="@drawable/favorite_act_dact"
+            android:padding="10dp"
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/product_title_card"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/favorite_icon_24"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,UseAppTint" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

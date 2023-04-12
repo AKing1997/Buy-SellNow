@@ -55,6 +55,7 @@ class EditUserDetail : AppCompatActivity() {
     lateinit var mapProfileView: MapView
     lateinit var editDireccion: TextView
     var imageUri: Uri? = null
+    var imgUrl = ""
     lateinit var profilemediaSelecterCons: ConstraintLayout
     lateinit var profileCameraBtn: Button
     lateinit var profileGallaryBtn: Button
@@ -136,6 +137,7 @@ class EditUserDetail : AppCompatActivity() {
                     editDireccion.setText(it.direccion)
                     Glide.with(this).load(it.userImage)
                         .into(userImagePicker)
+                    imgUrl = it.userImage
                     location = LatLng(it.latitude, it.longitude)
                 }
             }
@@ -186,7 +188,7 @@ class EditUserDetail : AppCompatActivity() {
                 conexion.updateUserDetaill(
                     tempUser(
                         userId,
-                        "",
+                        imgUrl,
                         editTextPersonName.text.toString(),
                         editTextPersonLastName.text.toString(),
                         userToken,
