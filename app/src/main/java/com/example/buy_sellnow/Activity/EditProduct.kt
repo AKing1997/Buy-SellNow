@@ -70,7 +70,6 @@ class EditProduct : AppCompatActivity() {
         lateinit var productId: String;
         lateinit var product: Product;
         val conexion: FireBaseConexion =  FireBaseConexion()
-
     }
 
 
@@ -127,20 +126,20 @@ class EditProduct : AppCompatActivity() {
                 showErrorMsg()
             }else{
                 showErrorMsg()
-
                 val date = LocalDateTime.now()
                 val userId = preferences.getString("userId", null)
                 product = Product(
-                    UUID.randomUUID().toString(),
+                    product.productId,
                     editTexteditProductName.text.toString(),
                     editProductCategoriSpinnerSelected,
                     "",
                     editTexteditProductDescription.text.toString(),
                     editTexteditProductPrice.text.toString(),
                     editTexteditProductWeight.text.toString(),
-                    "", date.toString(),
                     "",
-                    ArrayList<String>(),
+                    product.dateCreated,
+                    date.toString(),
+                    product.image,
                     "",
                     editTexteditProductBrand.text.toString(),
                     "0",
@@ -217,11 +216,9 @@ class EditProduct : AppCompatActivity() {
                         R.id.editProductCategoriSpinner -> {editProductCategoriSpinnerSelected = item}
                     }
                 }
-
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     TODO("Not yet implemented")
                 }
-
             }
         }
     }
