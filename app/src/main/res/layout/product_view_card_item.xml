@@ -88,14 +88,29 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/custom_button_profile"
             android:backgroundTint="#EF7B7B"
-            android:minWidth="30dp"
-            android:minHeight="30dp"
+            android:minWidth="36dp"
+            android:minHeight="36dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_edit"
             app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/iconDelivery"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/border_radious"
+            android:backgroundTint="#8BC34A"
+            android:padding="5dp"
+            android:tint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/shipping_24"
+            tools:ignore="UseAppTint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

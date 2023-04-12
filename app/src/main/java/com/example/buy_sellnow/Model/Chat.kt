@@ -1,15 +1,14 @@
 package com.example.buy_sellnow.Model
 
+import com.google.firebase.database.ServerValue
+
 
 data class Chat(
+    var chatId: String,
     var userBuyerId: String,
     var userSelletId: String,
-    var productId: String,
-    var productImg: String,
-    var productTitle: String,
-    var messages: Message,
-    var dateTime: String
+    var createdDateTime: Any = ServerValue.TIMESTAMP
 ) {
-    constructor() : this("","","", "", "", Message(), "")
+    constructor() : this("","","")
 }
 

@@ -1,5 +1,6 @@
 package com.example.buy_sellnow.Activity
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,6 @@ import kotlin.collections.ArrayList
 
 class EditProduct : AppCompatActivity() {
     companion object {
-        private lateinit var preferences: SharedPreferences
         lateinit var editproductStatusSpinner: Spinner
         lateinit var editProductDeliverySpinner: Spinner
         lateinit var editProductCategoriSpinner: Spinner
@@ -30,10 +30,8 @@ class EditProduct : AppCompatActivity() {
         lateinit var deleteProductBtnEdit: Button
 
         /* Layouts etc*/
-        lateinit var mediaSelecterCons: ConstraintLayout
         lateinit var editProductToolbar: MaterialToolbar
         lateinit var editProductBottomNav: BottomNavigationView
-        lateinit var editProductDetailPickConst: ConstraintLayout
 
         /* Variables para spinner item selected */
         var productStatusSpinnerSelected: Int = 0
@@ -106,8 +104,18 @@ class EditProduct : AppCompatActivity() {
         val editProductBtn: Button = findViewById(R.id.editProductBtn)
         deleteProductBtnEdit = findViewById(R.id.deleteProductBtnEdit)
         deleteProductBtnEdit.setOnClickListener {
-            conexion.deleteProduct(productId)
-            onBackPressed()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Producto - ${product.tituloDeProducto}")
+            builder.setMessage("¿Estas seguro de que deseas eliminar el producto ${product.tituloDeProducto}?")
+            builder.setPositiveButton("Yes"){dialog, which ->
+                conexion.deleteProduct(productId)
+                onBackPressed()
+            }
+            builder.setNegativeButton("No") { dialog, which ->
+                // No hacer nada
+            }
+            val dialog = builder.create()
+            dialog.show()
         }
         /** Variales de Error Message  **/
         editTexteditProductBrandErMsg = findViewById(R.id.editTexteditProductBrandErMsg)
@@ -128,14 +136,10 @@ class EditProduct : AppCompatActivity() {
 
         editProductBtn.setOnClickListener {
             if (!validateForm()) {
-                Log.i("pro12", "no es valido")
                 showErrorMsg()
             }else{
-                Log.i("pro12", "antest en edit")
-
                 showErrorMsg()
                 val date = LocalDateTime.now()
-                val userId = preferences.getString("userId", null)
                 product = Product(
                     product.productId,
                     editTexteditProductName.text.toString(),
@@ -159,12 +163,11 @@ class EditProduct : AppCompatActivity() {
                             if(3== productStatusSpinnerSelected) ProductStatus.Bien else
                                 if(4== productStatusSpinnerSelected) ProductStatus.Mejorar else TODO()),
                     editProductDeliverySpinnerSelected==1,
-                    userId!!,
+                    product.userId,
                     productStatusSpinnerSelected,
                     categoriaId
                 )
-                Log.i("pro12", "antest en edit")
-                //conexion.updateProduct(product)
+                conexion.updateProduct(product)
                 resetForm()
                 onBackPressed()
             }

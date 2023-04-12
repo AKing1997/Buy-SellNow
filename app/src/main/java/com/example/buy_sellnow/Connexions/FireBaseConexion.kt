@@ -3,6 +3,7 @@ package com.example.buy_sellnow.Connexions
 import android.net.Uri
 import android.util.Log
 import com.example.buy_sellnow.Model.Chat
+import com.example.buy_sellnow.Model.Message
 import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.Model.tempUser
 import com.google.android.gms.tasks.Task
@@ -12,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FireBaseConexion {
@@ -52,7 +54,6 @@ class FireBaseConexion {
     fun updateProduct(product: Product) {
         mDatabase = this.getReference("Productos")
         mDatabase!!.child(product.productId.toString()).setValue(product);
-        Log.i("pro12", "Despuede edit")
     }
 
     fun deleteProduct(id: String){
@@ -60,10 +61,7 @@ class FireBaseConexion {
         mDatabase!!.child(id).removeValue();
     }
 
-    fun updateChat(chat: Chat){
-        mDatabase = this.getReference("Chats")
-        mDatabase!!.child(chat.userBuyerId+"-"+chat.userSelletId).setValue(chat)
-    }
+
 
     private fun uploadImages(images: ArrayList<Uri>, callback: (ArrayList<String>) -> Unit) {
         val uriList = ArrayList<String>()
@@ -146,17 +144,36 @@ class FireBaseConexion {
         mDatabase = this.getReference("Productos");
         mDatabase!!.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // if (snapshot.exists()) {
                 val product = snapshot.getValue(Product::class.java)
                 callback(product!!)
-                //} else {
-                //}
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.i("ERROR_FIREBASE", error.message)
             }
         });
+    }
+
+    fun getProductsByIds(ids: ArrayList<String>, callback: (ArrayList<Product>) -> Unit) {
+        mDatabase = this.getReference("Productos")
+        val query = mDatabase!!.orderByChild("productId").equalTo(ids[0])
+        for (i in 1 until ids.size) {
+            query.equalTo(ids[i])
+        }
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val products: ArrayList<Product> = ArrayList<Product>()
+                for (pro in snapshot.children) {
+                    val product = pro.getValue(Product::class.java)
+                    products.add(product!!)
+                }
+                callback(products) // Llamamos al callback cuando se hayan obtenido los datos
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.i("ERROR_FIREBASE", error.message)
+            }
+        })
     }
 
     fun getAllProductsByUserId(userId: String, callback: (ArrayList<Product>) -> Unit) {
@@ -190,13 +207,47 @@ class FireBaseConexion {
             }
         })
     }
+    /** Chat funcions **/
+    fun createChat(chat: Chat){
+        mDatabase = this.getReference("Chats")
+        mDatabase!!.child(chat.chatId).setValue(chat)
+    }
 
     fun getChatById(chatID: String, callback: (Chat?) -> Unit) {
         mDatabase = this.getReference("Chats");
         mDatabase!!.child(chatID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue(Chat::class.java)
-                callback(user)
+                if(dataSnapshot.exists()){
+                    val user = dataSnapshot.getValue(Chat::class.java)
+                    callback(user)
+                }
+                callback(null)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
+
+    fun sendMsg(msg: Message, chatID: String){
+        mDatabase = this.getReference("Messages");
+        mDatabase!!.child(chatID).child(UUID.randomUUID().toString()).setValue(msg)
+    }
+
+    fun getMsgByChatId(chatID: String, callback: (ArrayList<Message>?) -> Unit){
+        mDatabase = this.getReference("Messages");
+        mDatabase!!.child(chatID).orderByChild("sendTime").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val msgs: ArrayList<Message> = ArrayList()
+                msgs.clear();
+                for (child in dataSnapshot.children){
+                    val msg = child.getValue(Message::class.java)
+                    if (msg != null) {
+                        Log.i("pro12",msg.toString())
+                        msgs.add(msg)
+                    }
+                }
+                callback(msgs)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 callback(null)
@@ -232,10 +283,12 @@ class FireBaseConexion {
         mDatabase = this.getReference("favorites");
         mDatabase!!.child(userId).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
+                var productsIds: ArrayList<String>  = ArrayList()
                 for (pro in dataSnapshot.children) {
-                    Log.i("favoritos: ",pro.getValue().toString())
+                    productsIds.add(pro.key.toString())
+                    Log.i("favoritos: ",pro.key.toString())
                 }
+                callback(productsIds)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 callback(null)

@@ -22,7 +22,8 @@ import kotlin.properties.Delegates
 
 internal class ProductGridViewAdapter(
     private val productList: ArrayList<Product>,
-    private val context: Context
+    private val context: Context,
+    private val isSell: Boolean
 ) : BaseAdapter() {
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
     private lateinit var redrige: Intent;
@@ -32,9 +33,7 @@ internal class ProductGridViewAdapter(
     private lateinit var product_img_card: ImageView
     private lateinit var product_fav_btn_card: ToggleButton
     private lateinit var editBtn: ImageButton
-    private var isButtonChecked: Boolean by Delegates.observable(true) { _, _, newState ->
-        product_fav_btn_card.isChecked = newState
-    }
+    private lateinit var iconDelivery: ImageView
 
     override fun getCount(): Int {
         return productList.size
@@ -58,14 +57,14 @@ internal class ProductGridViewAdapter(
         if (view == null) {
             view = layoutInflater!!.inflate(R.layout.product_view_card_item, null)
         }
-
+        iconDelivery = view!!.findViewById(R.id.iconDelivery)
         product_price_card = view!!.findViewById(R.id.product_price_card)
         product_title_card = view.findViewById(R.id.product_title_card)
         product_fav_btn_card = view.findViewById(R.id.product_fav_btn_card)
         product_img_card = view.findViewById(R.id.product_img_card)
         editBtn = view.findViewById(R.id.editBtn)
-
-        if(productList[position].userId.equals(userId)){
+        iconDelivery.visibility = if(productList[position].delivery) View.VISIBLE else View.GONE
+        if(isSell && productList[position].userId.equals(userId)){
             editBtn.visibility=View.VISIBLE;
             editBtn.setOnClickListener (object:View.OnClickListener{
                 override fun onClick(v: View?) {

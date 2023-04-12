@@ -31,7 +31,7 @@ class Sell : AppCompatActivity() {
         conexion.getAllProductsByUserId(userId) { products ->
             productLis.clear();
             productLis.addAll(products)
-            val productGridViewAdapter = ProductGridViewAdapter(productLis, this);
+            val productGridViewAdapter = ProductGridViewAdapter(productLis, this, true);
             productGridViewAdapter.notifyDataSetChanged();
             sell_grid_view_home.adapter = productGridViewAdapter;
         }

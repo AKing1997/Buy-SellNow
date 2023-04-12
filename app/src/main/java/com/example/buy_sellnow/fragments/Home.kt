@@ -31,7 +31,7 @@ class Home : Fragment() {
         conexion.getAllPublicacion { products ->
             productLis.clear();
             productLis.addAll(products)
-            val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context);
+            val productGridViewAdapter = ProductGridViewAdapter(productLis, view.context, false);
             productGridViewAdapter.notifyDataSetChanged();
             fav_grid_view_home.adapter = productGridViewAdapter;
         }
