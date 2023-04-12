@@ -59,8 +59,8 @@ class Profile(): Fragment() {
 
         profile_buy_btn = view.findViewById(R.id.profile_buy_btn)
         profile_buy_btn.setOnClickListener {
-            redrige = Intent(view.context, Buy::class.java);
             startActivity(redrige);
+            redrige = Intent(view.context, Buy::class.java);
         }
         preferences = view.context.getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
         val userId = preferences.getString("userId", null).toString()
