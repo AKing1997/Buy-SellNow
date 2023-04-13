@@ -90,13 +90,9 @@ class ChatDetail : AppCompatActivity() {
             }
         }
 
-        conexion.getChatById(CHAT_ID){
-            if (it != null) {
-                chat = it
-            }else{
+       if(CHAT_ID.isNotEmpty()){
                 CHAT_ID = (PRODUCT_USER_ID+"-"+USER_ID+"-"+PRODUCT_ID)
                 conexion.createChat(Chat(CHAT_ID, PRODUCT_ID , USER_ID, PRODUCT_USER_ID))
-            }
         }
 
         conexion.getMsgByChatId(CHAT_ID){
@@ -113,6 +109,7 @@ class ChatDetail : AppCompatActivity() {
         PRODUCT_TITLE = intent.getStringExtra("PRODUCT_TITLE").toString()
         PRODUCT_IMG = intent.getStringExtra("PRODUCT_IMG").toString()
         CHAT_ID = intent.getStringExtra("CHAT_ID").toString()
+        Log.i("pro122", CHAT_ID)
         chatDetailProductName.setText(PRODUCT_TITLE)
         Glide.with(this).load(PRODUCT_IMG)
             .into(chatDetailPImg)

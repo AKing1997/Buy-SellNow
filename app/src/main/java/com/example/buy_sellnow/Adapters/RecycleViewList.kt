@@ -50,8 +50,7 @@ class RecycleViewList(
             val redrige = Intent(context, ChatDetail::class.java)
             redrige.putExtra("PRODUCT_ID",  product?.productId)
             redrige.putExtra("CHAT_ID", key)
-            Log.i("pro12", key+"Ankit")
-            Log.i("pro12", product.toString())
+
             redrige.putExtra("USER_ID", userId)
             redrige.putExtra("PRODUCT_TITLE",  title)
             redrige.putExtra("PRODUCT_IMG", img)
