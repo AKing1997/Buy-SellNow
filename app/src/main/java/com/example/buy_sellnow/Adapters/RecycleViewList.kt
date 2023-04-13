@@ -37,7 +37,7 @@ class RecycleViewList(
         return productList.size
     }
 
-    //Asociar la información que queremos mostrar en el item list
+    /** Asociar la información que queremos mostrar en el item list */
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val key = productList.keys.elementAt(position)
         val product = productList[key]
@@ -59,13 +59,13 @@ class RecycleViewList(
         }
     }
 
-    //Devueve el item que voy a mostrar en el recycler
+    /** Devueve el item que voy a mostrar en el recycler */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val  layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.activity_chat_member_list, parent, false))
     }
 
-    //Definir los campos de mi item list
+    /** Definir los campos de mi item list */
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         var img: ImageView = view.findViewById(R.id.chatProdctImage)
         var title: TextView = view.findViewById(R.id.chatProductName)

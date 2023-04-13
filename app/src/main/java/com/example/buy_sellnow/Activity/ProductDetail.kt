@@ -19,7 +19,6 @@ import com.example.buy_sellnow.Adapters.ImageRecycleView
 import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
-import com.example.buy_sellnow.SignUp
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -27,11 +26,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.firebase.auth.FirebaseAuth
 
 class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
     lateinit var productDetail : MaterialToolbar
-    private lateinit var preferences: SharedPreferences;
+    private lateinit var preferences: SharedPreferences
 
     companion object{
         /** Map **/
@@ -39,27 +37,30 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         private lateinit var map: GoogleMap
         lateinit var redrige: Intent
 
+        /** Product Variables */
         lateinit var productUserId: String
         var producto: Product? = null
-        /* User variables */
-        lateinit var detail_total_sells: TextView;
-        lateinit var detail_username: TextView;
 
-        /* Product variables */
-        lateinit var detail_title: TextView;
-        lateinit var detail_description: TextView;
-        lateinit var detail_priece: TextView;
+        /** User variables */
+        lateinit var detail_total_sells: TextView
+        lateinit var detail_username: TextView
+
+        /** Product variables */
+        lateinit var detail_title: TextView
+        lateinit var detail_description: TextView
+        lateinit var detail_priece: TextView
         lateinit var detail_profileImg: ImageView
 
         /** ACTTIVITY PRODUCT DETAIL VARIABLES **/
         lateinit var productDetailChatBtn: Button
-        /* Image recycleView */
-        lateinit var adapter: ImageRecycleView;
-        lateinit var productDetailRecycleView: RecyclerView;
+        /** Image recycleView */
+        lateinit var adapter: ImageRecycleView
+        lateinit var productDetailRecycleView: RecyclerView
 
-        val conexion: FireBaseConexion = FireBaseConexion();
+        val conexion: FireBaseConexion = FireBaseConexion()
         lateinit var dPFavBtn: ToggleButton
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
@@ -67,7 +68,7 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         productDetailMap.onCreate(savedInstanceState)
         productDetailMap.getMapAsync(this)
 
-        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE)
         val userId = preferences.getString("userId", null).toString()
         val productId = intent.getStringExtra("productId")
         dPFavBtn = findViewById(R.id.dPFavBtn)
@@ -94,10 +95,9 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         detail_priece = findViewById(R.id.detail_priece)
         detail_profileImg = findViewById(R.id.detail_profileImg)
 
-
         productDetailChatBtn.setOnClickListener {
             if(producto!=null){
-                redrige = Intent(this, ChatDetail::class.java);
+                redrige = Intent(this, ChatDetail::class.java)
                 redrige.putExtra("PRODUCT_ID", productId)
                 redrige.putExtra("USER_ID", userId)
                 redrige.putExtra("PRODUCT_TITLE", producto!!.tituloDeProducto)
@@ -108,28 +108,28 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         }
         productDetailRecycleView = findViewById(R.id.productDetailRecycleView)
         productDetail.setNavigationOnClickListener {
-            onBackPressed();
+            onBackPressed()
         }
-        conexion.getProductById(productId!!) { product ->
+        conexion.getProductById(productId) { product ->
             if(product.userId == userId){
                 productDetailChatBtn.visibility = View.GONE
                 dPFavBtn.visibility = View.GONE
             }
 
-            var imageUrl: ArrayList<Uri> = ArrayList();
+            val imageUrl: ArrayList<Uri> = ArrayList()
             for (prod in product.image){
                 imageUrl.add(Uri.parse(prod))
             }
             producto = product
             productUserId = product.userId
             productDetail.setTitle(product.tituloDeProducto)
-            productDetailRecycleView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-            adapter = ImageRecycleView(imageUrl, this, true);
-            productDetailRecycleView.adapter = adapter;
+            productDetailRecycleView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+            adapter = ImageRecycleView(imageUrl, this, true)
+            productDetailRecycleView.adapter = adapter
             detail_title.setText(product.tituloDeProducto)
             detail_description.setText(product.description)
             detail_priece.setText(product.precio+" €")
-            product.userId?.let {
+            product.userId.let {
                 conexion.getUserById(it){
                     if(it != null){
                         detail_username.setText(it.firstName+" "+it.lastName)

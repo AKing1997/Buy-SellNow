@@ -1,21 +1,15 @@
 package com.example.buy_sellnow.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.GridView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.buy_sellnow.Model.GridViewProduct
 import com.example.buy_sellnow.Adapters.ProductGridViewAdapter
 import com.example.buy_sellnow.Connexions.FireBaseConexion
-import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 
 
 class Favorite : Fragment() {
@@ -24,18 +18,18 @@ class Favorite : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        var fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view);
-        val conexion: FireBaseConexion = FireBaseConexion();
+        val view = inflater.inflate(R.layout.fragment_favorite, container, false)
+        val fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view)
+        val conexion: FireBaseConexion = FireBaseConexion()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         conexion.getAllFavoritesByUserId(userId){ids->
             if (ids != null) {
                 conexion.getProductsByIds(ids) {
                     if (it != null) {
-                        val productGridViewAdapter = ProductGridViewAdapter(it, view.context, false);
-                        productGridViewAdapter.notifyDataSetChanged();
-                        fav_grid_view.adapter = productGridViewAdapter;
+                        val productGridViewAdapter = ProductGridViewAdapter(it, view.context, false)
+                        productGridViewAdapter.notifyDataSetChanged()
+                        fav_grid_view.adapter = productGridViewAdapter
                     }
                 }
             }
@@ -49,6 +43,6 @@ class Favorite : Fragment() {
                  Toast.LENGTH_SHORT
              ).show()
          }*/
-        return view;
+        return view
     }
 }

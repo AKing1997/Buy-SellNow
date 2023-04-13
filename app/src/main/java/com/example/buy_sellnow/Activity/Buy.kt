@@ -11,8 +11,8 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.auth.FirebaseAuth
 
 class Buy : AppCompatActivity() {
-    lateinit var buyToolbar: MaterialToolbar;
-    var productLis: ArrayList<Product> = ArrayList();
+    lateinit var buyToolbar: MaterialToolbar
+    var productLis: ArrayList<Product> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,18 +21,18 @@ class Buy : AppCompatActivity() {
         buyToolbar = findViewById(R.id.buyToolbar)
         buyToolbar.setTitle("Compras")
         buyToolbar.setNavigationOnClickListener {
-            onBackPressed();
+            onBackPressed()
         }
 
-        var buy_grid_view_home: GridView = findViewById(R.id.buy_grid_view_home);
+        val buy_grid_view_home: GridView = findViewById(R.id.buy_grid_view_home)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        var conexion: FireBaseConexion =  FireBaseConexion();
+        val conexion: FireBaseConexion =  FireBaseConexion()
         conexion.getAllProductsByUserId(userId) { products ->
-            productLis.clear();
+            productLis.clear()
             productLis.addAll(products)
-            val productGridViewAdapter = ProductGridViewAdapter(productLis, this, false);
-            productGridViewAdapter.notifyDataSetChanged();
-            buy_grid_view_home.adapter = productGridViewAdapter;
+            val productGridViewAdapter = ProductGridViewAdapter(productLis, this, false)
+            productGridViewAdapter.notifyDataSetChanged()
+            buy_grid_view_home.adapter = productGridViewAdapter
         }
     }
 }

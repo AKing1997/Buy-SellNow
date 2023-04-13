@@ -3,7 +3,6 @@ package com.example.buy_sellnow.Activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -12,7 +11,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -26,27 +24,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
-import com.example.buy_sellnow.BuildConfig
 import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.MainActivity
-import com.example.buy_sellnow.Model.User
 import com.example.buy_sellnow.Model.tempUser
 import com.example.buy_sellnow.R
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
 
 class EditUserDetail : AppCompatActivity() {
     lateinit var profileSaveBtn: Button
-    private lateinit var preferences: SharedPreferences;
+    private lateinit var preferences: SharedPreferences
     lateinit var imgPickBtn: Button
     lateinit var pickLoction: Button
     lateinit var userImagePicker: ImageView
@@ -59,16 +51,15 @@ class EditUserDetail : AppCompatActivity() {
     lateinit var profilemediaSelecterCons: ConstraintLayout
     lateinit var profileCameraBtn: Button
     lateinit var profileGallaryBtn: Button
-
     lateinit var location: LatLng
     lateinit var direccion: String
 
     companion object {
         private lateinit var map: GoogleMap
         private const val REQUEST_CODE = 1
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001;
-        private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002;
-        private var CAMERA_EXTERNAL = 0; //1 CAM - 2 EXTERNAL
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
+        private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002
+        private var CAMERA_EXTERNAL = 0 //1 CAM - 2 EXTERNAL
     }
 
     /** Variable que para que startactivity with result o sea estara en la espera de resultado de lo lacalizacion **/
@@ -114,7 +105,7 @@ class EditUserDetail : AppCompatActivity() {
         mapProfileView.onCreate(savedInstanceState)
         mapProfileView.getMapAsync(this)*/
 
-        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE)
 
         profileSaveBtn = findViewById(R.id.profileSaveBtn)
         pickLoction = findViewById(R.id.pickLoction)
@@ -154,13 +145,13 @@ class EditUserDetail : AppCompatActivity() {
                 )
             } else {
                 // Sinó farem l'intent de mostrar la càmera
-                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE));
+                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
             }
         }
         profileGallaryBtn.setOnClickListener {
             profilemediaSelecterCons.visibility = View.GONE
             if (isExternalPermissionGranted()) {
-                pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly));
+                pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             } else {
                 // Farem una petició de permisos
                 ActivityCompat.requestPermissions(
@@ -172,8 +163,8 @@ class EditUserDetail : AppCompatActivity() {
         }
 
         pickLoction.setOnClickListener {
-            var redrige = Intent(this, Map::class.java);
-            activityResultLauncher.launch(redrige);
+            var redrige = Intent(this, Map::class.java)
+            activityResultLauncher.launch(redrige)
         }
 
         imgPickBtn.setOnClickListener {
@@ -198,7 +189,7 @@ class EditUserDetail : AppCompatActivity() {
                     ),
                     imageUri
                 )
-                val redrige = Intent(this, MainActivity::class.java);
+                val redrige = Intent(this, MainActivity::class.java)
                 startActivity(redrige)
             } else {
                 val builder = AlertDialog.Builder(this)
@@ -230,25 +221,23 @@ class EditUserDetail : AppCompatActivity() {
         return Uri.fromFile(file)
     }
 
-    // Resposta de la càmera
+    /** Resposta de la càmera */
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val intent = result.data;
-                val imageBitmap = intent?.extras?.get("data") as Bitmap;
+                val intent = result.data
+                val imageBitmap = intent?.extras?.get("data") as Bitmap
                 //imageUris.add(intent)
                 if (imageBitmap != null) {
-                    //Toast.makeText(this, "anterea", Toast.LENGTH_SHORT).show()
-                    //imageUris.add(imageBitmap)
                     imageUri =  bitmapToUri(imageBitmap)
                     userImagePicker.setImageURI(imageUri)
                 }
-                //imageView.setImageBitmap(imageBitmap);
-                CAMERA_EXTERNAL = 1;
+                //imageView.setImageBitmap(imageBitmap)
+                CAMERA_EXTERNAL = 1
             }
         }
 
-    // Permisos camera photo
+    /** Permisos camera photo */
     private fun isCameraPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -256,7 +245,7 @@ class EditUserDetail : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    //Permisos external storage
+    /** Permisos external storage */
     private fun isExternalPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -264,7 +253,7 @@ class EditUserDetail : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Resposta a l'acció de l'usuari en validar o no els permisos
+    /** Resposta a l'acció de l'usuari en validar o no els permisos */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -273,9 +262,7 @@ class EditUserDetail : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed with opening camera
             } else {
-                // Permission denied, handle accordingly
             }
         }/* else if (requestCode == EXTERNAL_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

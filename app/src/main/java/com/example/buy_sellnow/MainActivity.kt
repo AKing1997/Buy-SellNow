@@ -18,32 +18,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var preferences: SharedPreferences;
+    private lateinit var preferences: SharedPreferences
     private  lateinit var redrige: Intent
     override fun onCreate(savedInstanceState: Bundle?) {
-        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE)
         val userId = preferences.getString("userId", null).toString()
         if(userId!=null){
             val conexion: FireBaseConexion = FireBaseConexion()
             conexion.getUserById(userId){
                 if(it == null){
-                    redrige = Intent(this, EditUserDetail::class.java);
-                    startActivity(redrige);
+                    redrige = Intent(this, EditUserDetail::class.java)
+                    startActivity(redrige)
                 }
             }
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        defaultPage();
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        defaultPage()
         // Creando una variable para los botones de menu navegacion
-        val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView);
-        val addProduct: FloatingActionButton = findViewById(R.id.addProduct);
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val addProduct: FloatingActionButton = findViewById(R.id.addProduct)
         addProduct.setOnClickListener {
-            redrige = Intent(this, AddProduct::class.java);
-            startActivity(redrige);
+            redrige = Intent(this, AddProduct::class.java)
+            startActivity(redrige)
         }
         bottomNav.setOnItemSelectedListener { item: MenuItem ->
-            // condicione como Switch
+            // condiciones como Switch
             when (item.itemId) {
                 R.id.home -> {// Frgmento Home
                     loadFragment(Home())
@@ -70,15 +70,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Funcion fragmento por defecto
+    /** Funcion fragmento por defecto */
     private fun defaultPage(){
-        loadFragment(Home());
+        loadFragment(Home())
     }
-    // Funcion que recibe el fragmento y lo inicializa
-    public fun loadFragment(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container,fragment);
-        transaction.addToBackStack(null);
+    /** Funcion que recibe el fragmento y lo inicializa */
+    fun loadFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container,fragment)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 }

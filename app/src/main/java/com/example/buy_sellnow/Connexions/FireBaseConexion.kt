@@ -50,7 +50,7 @@ class FireBaseConexion {
             mDatabase!!.child(product.productId.toString()).setValue(product);
         }
     }
-    // UPDATE PRODUCT
+    /** UPDATE PRODUCT */
     fun updateProduct(product: Product) {
         mDatabase = this.getReference("Productos")
         mDatabase!!.child(product.productId.toString()).setValue(product);
@@ -85,7 +85,7 @@ class FireBaseConexion {
                 uriList.add(uri.toString())
                 callback(uriList)
             }
-        }.addOnFailureListener { exception ->
+        }.addOnFailureListener {
         }
     }
 
@@ -103,7 +103,7 @@ class FireBaseConexion {
             if (task.isSuccessful) {
                 val downloadUri = task.result.toString()
                 if(url.isNotEmpty()) {
-                    val storage = FirebaseStorage.getInstance()
+                    storage = FirebaseStorage.getInstance()
                     val ref = storage.getReferenceFromUrl(url)
                     ref.delete()
                         .addOnSuccessListener {
@@ -116,8 +116,7 @@ class FireBaseConexion {
                 }
                 callback(downloadUri)
             }
-        }.addOnFailureListener { exception ->
-            // Manejar la excepción
+        }.addOnFailureListener {
         }
     }
 
@@ -212,7 +211,7 @@ class FireBaseConexion {
             }
         })
     }
-    /** Chat funcions **/
+    /** Chat functions **/
     fun createChat(chat: Chat){
         mDatabase = this.getReference("Chats")
         mDatabase!!.child(chat.chatId).setValue(chat)
@@ -238,7 +237,7 @@ class FireBaseConexion {
         mDatabase = this.getReference("Chats");
         mDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var chats: ArrayList<Chat> = ArrayList()
+                val chats: ArrayList<Chat> = ArrayList()
                 if(dataSnapshot.exists()){
                     for (data in dataSnapshot.children){
                         val chat = data.getValue(Chat::class.java)
@@ -337,7 +336,7 @@ class FireBaseConexion {
         mDatabase = this.getReference("favorites");
         mDatabase!!.child(userId).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var productsIds: ArrayList<String>  = ArrayList()
+                val productsIds: ArrayList<String>  = ArrayList()
                 for (pro in dataSnapshot.children) {
                     productsIds.add(pro.key.toString())
                     Log.i("favoritos: ",pro.key.toString())
