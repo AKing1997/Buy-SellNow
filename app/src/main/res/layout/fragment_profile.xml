@@ -65,6 +65,7 @@
             <TextView
                 android:id="@+id/profile_user_sell_detail"
                 android:layout_width="0dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -87,7 +88,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="6dp"
                 android:text="Ubicacion Barcelona"
                 android:textColor="@color/primary_text"
                 android:textSize="14sp"
@@ -99,6 +100,7 @@
 
             <RatingBar
                 android:id="@+id/profile_rating_bar"
+                android:visibility="gone"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
@@ -174,6 +176,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:background="@drawable/profile_upper_radius"
                         android:padding="10sp"
                         android:text="Recomendación"
@@ -189,6 +192,7 @@
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
+                        android:visibility="gone"
                         tools:ignore="RtlSymmetry" />
 
                     <Button
@@ -256,6 +260,7 @@
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
                         android:textColor="@color/primary"
+                        android:visibility="gone"
                         android:textSize="16sp"
                         app:cornerRadius="10dp" />
 
@@ -273,6 +278,7 @@
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
                         android:textColor="@color/primary"
+                        android:visibility="gone"
                         android:textSize="16sp"
                         app:cornerRadius="10dp" />
 
