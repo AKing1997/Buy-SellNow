@@ -84,6 +84,8 @@ class Login : AppCompatActivity() {
                 if (task.isSuccessful) {
                     startActivity(redrige);
                     val user = auth.currentUser
+                    getToken()
+                    editPerferences?.putString("userId",user?.uid)
                     editPerferences.putString("email", user?.email)
                     editPerferences.putString("sessionPlatform", sessionPlatform.EMAIL.name)
                     editPerferences.apply()
