@@ -110,13 +110,13 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         productDetail.setNavigationOnClickListener {
             onBackPressed()
         }
-        conexion.getProductById(productId!!) { product ->
+        conexion.getProductById(productId) { product ->
             if(product.userId == userId){
                 productDetailChatBtn.visibility = View.GONE
                 dPFavBtn.visibility = View.GONE
             }
 
-            var imageUrl: ArrayList<Uri> = ArrayList()
+            val imageUrl: ArrayList<Uri> = ArrayList()
             for (prod in product.image){
                 imageUrl.add(Uri.parse(prod))
             }
@@ -129,7 +129,7 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
             detail_title.setText(product.tituloDeProducto)
             detail_description.setText(product.description)
             detail_priece.setText(product.precio+" €")
-            product.userId?.let {
+            product.userId.let {
                 conexion.getUserById(it){
                     if(it != null){
                         detail_username.setText(it.firstName+" "+it.lastName)

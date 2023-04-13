@@ -41,7 +41,7 @@ internal class ProductGridViewAdapter(
         return 0
     }
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup?): View? {
+    override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
         var view = view
 
         if (layoutInflater == null) {
@@ -52,7 +52,7 @@ internal class ProductGridViewAdapter(
             view = layoutInflater!!.inflate(R.layout.product_view_card_item, null)
         }
         iconDelivery = view!!.findViewById(R.id.iconDelivery)
-        product_price_card = view!!.findViewById(R.id.product_price_card)
+        product_price_card = view.findViewById(R.id.product_price_card)
         product_title_card = view.findViewById(R.id.product_title_card)
         product_fav_btn_card = view.findViewById(R.id.product_fav_btn_card)
         product_img_card = view.findViewById(R.id.product_img_card)
@@ -68,7 +68,7 @@ internal class ProductGridViewAdapter(
                 }
             })
         }
-        Glide.with(context!!).load(productList[position].image[0]).into(product_img_card)
+        Glide.with(context).load(productList[position].image[0]).into(product_img_card)
         product_price_card.text = "${productList[position].precio} €"
         product_title_card.text = productList[position].tituloDeProducto
 

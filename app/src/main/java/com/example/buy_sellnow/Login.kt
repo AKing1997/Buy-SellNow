@@ -82,7 +82,7 @@ class Login : AppCompatActivity() {
                     startActivity(redrige)
                     val user = auth.currentUser
                     getToken()
-                    editPerferences?.putString("userId",user?.uid)
+                    editPerferences.putString("userId",user?.uid)
                     editPerferences.putString("email", user?.email)
                     editPerferences.putString("sessionPlatform", sessionPlatform.EMAIL.name)
                     editPerferences.apply()
@@ -118,10 +118,10 @@ class Login : AppCompatActivity() {
             if (it.isSuccessful) {
                 val user = auth.currentUser
                 getToken()
-                editPerferences?.putString("email", user?.email)
-                editPerferences?.putString("userId", user?.uid)
-                editPerferences?.putString("sessionPlatform", sessionPlatform.GOOGLE.name)
-                editPerferences?.apply()
+                editPerferences.putString("email", user?.email)
+                editPerferences.putString("userId", user?.uid)
+                editPerferences.putString("sessionPlatform", sessionPlatform.GOOGLE.name)
+                editPerferences.apply()
                 startActivity(redrige)
             }
         }

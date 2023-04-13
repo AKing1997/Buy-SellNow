@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(redrige)
         }
         bottomNav.setOnItemSelectedListener { item: MenuItem ->
-            // condicione como Switch
+            // condiciones como Switch
             when (item.itemId) {
                 R.id.home -> {// Frgmento Home
                     loadFragment(Home())
@@ -70,12 +70,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Funcion fragmento por defecto
+    /** Funcion fragmento por defecto */
     private fun defaultPage(){
         loadFragment(Home())
     }
-    // Funcion que recibe el fragmento y lo inicializa
-    public fun loadFragment(fragment: Fragment){
+    /** Funcion que recibe el fragmento y lo inicializa */
+    fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container,fragment)
         transaction.addToBackStack(null)

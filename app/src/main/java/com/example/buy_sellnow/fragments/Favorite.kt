@@ -18,8 +18,8 @@ class Favorite : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_favorite, container, false)
-        var fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view)
+        val view = inflater.inflate(R.layout.fragment_favorite, container, false)
+        val fav_grid_view: GridView = view.findViewById(R.id.fav_grid_view)
         val conexion: FireBaseConexion = FireBaseConexion()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 

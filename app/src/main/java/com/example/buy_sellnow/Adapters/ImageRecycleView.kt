@@ -15,13 +15,11 @@ import com.example.buy_sellnow.Activity.FullScreenImageView
 import com.example.buy_sellnow.R
 
 class ImageRecycleView(
-    listas: ArrayList<Uri>,
-    context: Context,
-    b: Boolean,
+    var listas: ArrayList<Uri>,
+    var context: Context,
+    var b: Boolean,
 ) : RecyclerView.Adapter<ImageRecycleView.ViewHolder>() {
-    var listas: ArrayList<Uri> = listas
-    var context: Context = context
-    var b: Boolean = b
+
     /** Return cantidad de items en el recycler/lista */
     override fun getItemCount(): Int {
         return listas.size
@@ -35,7 +33,7 @@ class ImageRecycleView(
         //holder.imageView.setImageURI(listas.get(position))
         if(b){
             holder.imageView.setOnClickListener {
-                var redrige = Intent(context, FullScreenImageView::class.java)
+                val redrige = Intent(context, FullScreenImageView::class.java)
                 redrige.putExtra("listas", listas)
                 context.startActivity(redrige)
             }

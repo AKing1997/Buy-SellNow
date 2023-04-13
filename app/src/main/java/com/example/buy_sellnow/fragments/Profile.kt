@@ -10,14 +10,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.buy_sellnow.Activity.Buy
 import com.example.buy_sellnow.Login
-import com.example.buy_sellnow.Model.GridViewProduct
 import com.example.buy_sellnow.R
 import com.example.buy_sellnow.Activity.EditUserDetail
 import com.example.buy_sellnow.Activity.Sell
@@ -33,7 +30,6 @@ class Profile(): Fragment() {
         private lateinit var profile_user_name: TextView
         private lateinit var profile_user_sell_detail: TextView
         private lateinit var profile_user_geo: TextView
-        private lateinit var profile_rating_bar: RatingBar
         private lateinit var profile_user_img: ImageView
         private lateinit var profile_sell_btn: Button
         private lateinit var profile_buy_btn: Button
@@ -44,9 +40,7 @@ class Profile(): Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_profile, container, false)
-        var prom_list_view: RecyclerView = view.findViewById(R.id.prom_list_view)
-        var productLis = ArrayList<GridViewProduct>()
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
         val profile_config_btn: Button = view.findViewById(R.id.profile_config_btn)
         profile_sell_btn = view.findViewById(R.id.profile_sell_btn)
         profile_sell_btn.setOnClickListener {
@@ -81,7 +75,7 @@ class Profile(): Fragment() {
             startActivity(redrige)
         }
 
-        var logOutBtn: ImageButton = view.findViewById(R.id.log_out)
+        val logOutBtn: ImageButton = view.findViewById(R.id.log_out)
         logOutBtn.setOnClickListener {
             signOut(view)
         }

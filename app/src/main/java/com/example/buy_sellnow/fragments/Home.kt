@@ -21,10 +21,10 @@ class Home : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_home, container, false)
-        var fav_grid_view_home: GridView = view.findViewById(R.id.fav_grid_view_home)
-        var prom_list_view_home: RecyclerView = view.findViewById(R.id.prom_list_view_home)
-        var conexion: FireBaseConexion =  FireBaseConexion()
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val fav_grid_view_home: GridView = view.findViewById(R.id.fav_grid_view_home)
+        val prom_list_view_home: RecyclerView = view.findViewById(R.id.prom_list_view_home)
+        val conexion: FireBaseConexion =  FireBaseConexion()
         prom_list_view_home.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         conexion.getAllPublicacion { products ->
             productLis.clear()

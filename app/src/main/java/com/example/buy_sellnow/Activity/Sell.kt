@@ -23,10 +23,10 @@ class Sell : AppCompatActivity() {
         sellToolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-        var sell_grid_view_home: GridView = findViewById(R.id.sell_grid_view_home)
+        val sell_grid_view_home: GridView = findViewById(R.id.sell_grid_view_home)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        var conexion: FireBaseConexion =  FireBaseConexion()
+        val conexion: FireBaseConexion =  FireBaseConexion()
         conexion.getAllProductsByUserId(userId) { products ->
             productLis.clear()
             productLis.addAll(products)
