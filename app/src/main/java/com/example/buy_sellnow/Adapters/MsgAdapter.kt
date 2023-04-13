@@ -32,7 +32,9 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
         val msg = msgs[position].msg
         val time = msgs[position].sendTime
         val img = msgs[position].img
-         val viewHolder = holder as Sender
+
+        if(holder.javaClass == Sender::class.java){
+            val viewHolder = holder as Sender
             viewHolder.sendTextView.text = msg
             if(img.isNotEmpty()){
                 viewHolder.sendChatImage.visibility = View.VISIBLE
@@ -40,11 +42,28 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
             } else {
                 viewHolder.sendChatImage.visibility = View.GONE
             }
-
+        } else {
+            val viewHolder = holder as Reciver
+            viewHolder.reciveMsgTextView.text = msg
+            if(img.isNotEmpty()){
+                viewHolder.reciveChatImage.visibility = View.VISIBLE
+                Glide.with(context).load(img).into(viewHolder.reciveChatImage)
+            } else {
+                viewHolder.reciveChatImage.visibility = View.GONE
+            }
+        }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val  layoutInflater = LayoutInflater.from(parent.context);
-
+        if(viewType == 2){
+            return Reciver(
+                layoutInflater.inflate(
+                    R.layout.recive_msg,
+                    parent,
+                    false
+                )
+            )
+        }else{
             return Sender(
                 layoutInflater.inflate(
                     R.layout.send_msg,
@@ -52,6 +71,7 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
                     false
                 )
             )
+        }
     }
 
     class Sender(view: View): RecyclerView.ViewHolder(view){

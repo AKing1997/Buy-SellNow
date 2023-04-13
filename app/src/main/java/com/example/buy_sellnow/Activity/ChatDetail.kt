@@ -89,7 +89,7 @@ class ChatDetail : AppCompatActivity() {
             }
         }
 
-       if(CHAT_ID.isNotEmpty()){
+       if(CHAT_ID.isEmpty()){
                 CHAT_ID = (PRODUCT_USER_ID+"-"+USER_ID+"-"+PRODUCT_ID)
                 conexion.createChat(Chat(CHAT_ID, PRODUCT_ID , USER_ID, PRODUCT_USER_ID))
         }
