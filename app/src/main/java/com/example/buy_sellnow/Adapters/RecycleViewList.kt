@@ -44,6 +44,7 @@ class RecycleViewList(
         holder.chatItemR.setOnClickListener {
             if(ProductDetail.producto !=null){
                 ProductDetail.redrige = Intent(context, ChatDetail::class.java);
+
                 ProductDetail.redrige.putExtra("PRODUCT_ID",  chatList[position].productId)
                 ProductDetail.redrige.putExtra("USER_ID", userId)
                 ProductDetail.redrige.putExtra("PRODUCT_TITLE",  chatList[position].tituloDeProducto)

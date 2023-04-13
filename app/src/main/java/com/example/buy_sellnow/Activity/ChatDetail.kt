@@ -36,13 +36,15 @@ class ChatDetail : AppCompatActivity() {
     lateinit var PRODUCT_TITLE: String
     lateinit var PRODUCT_USER_ID: String
     lateinit var PRODUCT_IMG: String
+    var CHAT_ID: String = ""
     /** Chat Header variables **/
     lateinit var chatDetailProductName: TextView
     lateinit var chatDetailBkBtn: ImageButton
     lateinit var chatDetailPImg: ImageView
-    /** Chat Bottom variables **/
     lateinit var chatShareImage: ImageView
     lateinit var chatCamera: ImageView
+    /** Chat Bottom variables **/
+    lateinit var chatDetailAddBtn: ImageView
     lateinit var chatDetailTextEdit: EditText
     lateinit var chatDetailSendBtn: ImageView
     lateinit var msgRecyclerView: RecyclerView
@@ -50,12 +52,12 @@ class ChatDetail : AppCompatActivity() {
     var chat: Chat = Chat()
     var msgs: ArrayList<Message> = ArrayList()
     val conexion: FireBaseConexion = FireBaseConexion()
+    val userId = FirebaseAuth.getInstance().currentUser!!.uid
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
-        //1:50
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_detail)
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         chatDetailProductName = findViewById(R.id.chatDetailProductName)
         chatDetailBkBtn = findViewById(R.id.chatDetailBkBtn)
@@ -68,44 +70,52 @@ class ChatDetail : AppCompatActivity() {
         chatDetailTextEdit = findViewById(R.id.chatDetailTextEdit)
         chatDetailSendBtn = findViewById(R.id.chatDetailSendBtn)
 
+
+        loadInfo()
+
+
+
+    }
+
+    private fun loadEvents(){
+        chatDetailBkBtn.setOnClickListener {
+            onBackPressed();
+        }
+
+        chatDetailSendBtn.setOnClickListener {
+            var msg = chatDetailTextEdit.text
+            if(msg.isNotEmpty()){
+                conexion.sendMsg(Message(userId,msg.toString(), ""), CHAT_ID)
+                chatDetailTextEdit.setText("")
+            }
+        }
+
+        conexion.getChatById(CHAT_ID){
+            if (it != null) {
+                chat = it
+            }else{
+                conexion.createChat(Chat(CHAT_ID, PRODUCT_ID , USER_ID, PRODUCT_USER_ID))
+            }
+        }
+
+        conexion.getMsgByChatId(CHAT_ID){
+            msgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            val adapter : MsgAdapter = MsgAdapter(it!!, this);
+            msgRecyclerView.adapter = adapter;
+            adapter.notifyDataSetChanged()
+        }
+    }
+    private fun loadInfo(){
         PRODUCT_ID = intent.getStringExtra("PRODUCT_ID").toString()
         USER_ID = intent.getStringExtra("USER_ID").toString()
         PRODUCT_USER_ID = intent.getStringExtra("PRODUCT_USER_ID").toString()
         PRODUCT_TITLE = intent.getStringExtra("PRODUCT_TITLE").toString()
         PRODUCT_IMG = intent.getStringExtra("PRODUCT_IMG").toString()
         chatDetailProductName.setText(PRODUCT_TITLE)
-
+        CHAT_ID = (PRODUCT_USER_ID+"-"+USER_ID+"-"+PRODUCT_ID)
         Glide.with(this).load(PRODUCT_IMG)
             .into(chatDetailPImg)
-
-        chatDetailBkBtn.setOnClickListener {
-            onBackPressed();
-        }
-        val chatID: String = (PRODUCT_USER_ID+"-"+USER_ID+"-"+PRODUCT_ID)
-
-        chatDetailSendBtn.setOnClickListener {
-            var msg = chatDetailTextEdit.text
-            if(msg.isNotEmpty()){
-                conexion.sendMsg(Message(userId,msg.toString(), ""), chatID)
-                chatDetailTextEdit.setText("")
-            }
-        }
-
-
-        conexion.getChatById(chatID){
-            if(it!=null){
-                chat = it
-            }else{
-                conexion.createChat(Chat(chatID, PRODUCT_ID , USER_ID,PRODUCT_USER_ID))
-            }
-        }
-
-        conexion.getMsgByChatId(chatID){
-            msgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                val adapter : MsgAdapter = MsgAdapter(it!!, this);
-                msgRecyclerView.adapter = adapter;
-                adapter.notifyDataSetChanged()
-        }
+        loadEvents()
     }
 
     private fun sendNotification(token: String, title: String, message: String) {

@@ -268,7 +268,6 @@ class FireBaseConexion {
         mDatabase!!.child(chatID).orderByChild("sendTime").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val msgs: ArrayList<Message> = ArrayList()
-                msgs.clear();
                 for (child in dataSnapshot.children){
                     val msg = child.getValue(Message::class.java)
                     if (msg != null) {
@@ -283,6 +282,32 @@ class FireBaseConexion {
             }
         })
     }
+
+    /*fun sendMsg(msg: Message, chatID: String){
+        mDatabase = this.getReference("Messages");
+        mDatabase!!.child(chatID).child(UUID.randomUUID().toString()).setValue(msg)
+    }
+
+    fun getMsgByChatId(chatID: String, callback: (ArrayList<Message>?) -> Unit){
+        mDatabase = this.getReference("Messages");
+        mDatabase!!.child(chatID).orderByChild("sendTime").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val msgs: ArrayList<Message> = ArrayList()
+                msgs.clear();
+                for (child in dataSnapshot.children){
+                    val msg = child.getValue(Message::class.java)
+                    if (msg != null) {
+                        Log.i("pro12",msg.toString())
+                        msgs.add(msg)
+                    }
+                }
+                callback(msgs)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                callback(null)
+            }
+        })
+    }*/
 
     /** Get, Add & Remove Favorite product list **/
     fun addTFavorite(productId: String, userId: String) {
