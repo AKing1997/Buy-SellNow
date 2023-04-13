@@ -1,15 +1,12 @@
 package com.example.buy_sellnow.Activity
 
 import android.app.AlertDialog
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.Model.Enum.ProductStatus
 import com.example.buy_sellnow.Model.Enum.Status
@@ -19,7 +16,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 
 class EditProduct : AppCompatActivity() {
     companion object {
@@ -65,8 +61,8 @@ class EditProduct : AppCompatActivity() {
         var productStatusSpinnerSelectedBol: Boolean = false
         var editProductDeliverySpinnerSelectedBol: Boolean = false
         var editProductCategoriSpinnerSelectedBol: Boolean = false
-        lateinit var productId: String;
-        lateinit var product: Product;
+        lateinit var productId: String
+        lateinit var product: Product
         val conexion: FireBaseConexion =  FireBaseConexion()
     }
 
@@ -94,7 +90,7 @@ class EditProduct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_product)
-        productId = intent.getStringExtra("productId").toString();
+        productId = intent.getStringExtra("productId").toString()
         getProduct()
         editproductStatusSpinner = findViewById(R.id.editproductStatusSpinner)
         editProductDeliverySpinner = findViewById(R.id.editProductDeliverySpinner)
@@ -212,9 +208,9 @@ class EditProduct : AppCompatActivity() {
 
     private fun getSpinnerItemSelected(s: Spinner, array: Array<String>) {
         if (s != null) {
-            val aA = ArrayAdapter(this, android.R.layout.simple_spinner_item, array);
+            val aA = ArrayAdapter(this, android.R.layout.simple_spinner_item, array)
             aA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            s.adapter = aA;
+            s.adapter = aA
             s.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -222,7 +218,7 @@ class EditProduct : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    val item = parent!!.getItemAtPosition(position).toString();
+                    val item = parent!!.getItemAtPosition(position).toString()
                     val selectedSpinnerId = parent?.id ?: return
                     when (selectedSpinnerId) {
                         R.id.editproductStatusSpinner -> {

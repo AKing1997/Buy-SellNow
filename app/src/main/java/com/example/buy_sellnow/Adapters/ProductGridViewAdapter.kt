@@ -1,4 +1,5 @@
 package com.example.buy_sellnow.Adapters
+
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,17 +9,10 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.example.buy_sellnow.Activity.EditProduct
-import com.example.buy_sellnow.Activity.FullScreenImageView
 import com.example.buy_sellnow.Activity.ProductDetail
-import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlin.properties.Delegates
 
 internal class ProductGridViewAdapter(
     private val productList: ArrayList<Product>,
@@ -26,7 +20,7 @@ internal class ProductGridViewAdapter(
     private val isSell: Boolean
 ) : BaseAdapter() {
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
-    private lateinit var redrige: Intent;
+    private lateinit var redrige: Intent
     private var layoutInflater: LayoutInflater? = null
     private lateinit var product_title_card: TextView
     private lateinit var product_price_card: TextView
@@ -65,7 +59,7 @@ internal class ProductGridViewAdapter(
         editBtn = view.findViewById(R.id.editBtn)
         iconDelivery.visibility = if(productList[position].delivery) View.VISIBLE else View.GONE
         if(isSell && productList[position].userId.equals(userId)){
-            editBtn.visibility=View.VISIBLE;
+            editBtn.visibility=View.VISIBLE
             editBtn.setOnClickListener (object:View.OnClickListener{
                 override fun onClick(v: View?) {
                     redrige = Intent(context, EditProduct::class.java)

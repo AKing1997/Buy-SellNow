@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.buy_sellnow.Adapters.MsgAdapter
-import com.example.buy_sellnow.Adapters.RecycleViewList
 import com.example.buy_sellnow.Connexions.FireBaseConexion
 import com.example.buy_sellnow.Interface.FCMService
 import com.example.buy_sellnow.Model.Chat
@@ -79,7 +78,7 @@ class ChatDetail : AppCompatActivity() {
 
     private fun loadEvents(){
         chatDetailBkBtn.setOnClickListener {
-            onBackPressed();
+            onBackPressed()
         }
 
         chatDetailSendBtn.setOnClickListener {
@@ -100,9 +99,9 @@ class ChatDetail : AppCompatActivity() {
         }
 
         conexion.getMsgByChatId(CHAT_ID){
-            msgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            val adapter : MsgAdapter = MsgAdapter(it!!, this);
-            msgRecyclerView.adapter = adapter;
+            msgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            val adapter : MsgAdapter = MsgAdapter(it!!, this)
+            msgRecyclerView.adapter = adapter
             adapter.notifyDataSetChanged()
         }
     }

@@ -42,72 +42,72 @@ import kotlin.collections.ArrayList
 
 class AddProduct : AppCompatActivity() {
     companion object {
-        private lateinit var preferences: SharedPreferences;
-        var imageUris: ArrayList<Uri> = ArrayList();
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001;
-        private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002;
-        private var CAMERA_EXTERNAL = 0; //1 CAM - 2 EXTERNAL
-        lateinit var adapter: ImageRecycleView;
-        lateinit var recycleView: RecyclerView;
-        var maxImage = 5;
-        lateinit var productStatusSpinner: Spinner;
-        lateinit var addProductDeliverySpinner: Spinner;
-        lateinit var addProductCategoriSpinner: Spinner;
+        private lateinit var preferences: SharedPreferences
+        var imageUris: ArrayList<Uri> = ArrayList()
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
+        private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002
+        private var CAMERA_EXTERNAL = 0 //1 CAM - 2 EXTERNAL
+        lateinit var adapter: ImageRecycleView
+        lateinit var recycleView: RecyclerView
+        var maxImage = 5
+        lateinit var productStatusSpinner: Spinner
+        lateinit var addProductDeliverySpinner: Spinner
+        lateinit var addProductCategoriSpinner: Spinner
 
-        lateinit var addProductCameraBtn: Button;
-        lateinit var addProductGallaryBtn: Button;
-        lateinit var addProductGallaryPick: Button;
+        lateinit var addProductCameraBtn: Button
+        lateinit var addProductGallaryBtn: Button
+        lateinit var addProductGallaryPick: Button
 
         /* Layouts etc*/
-        lateinit var mediaSelecterCons: ConstraintLayout;
-        lateinit var addProductToolbar: MaterialToolbar;
-        lateinit var addProductBottomNav: BottomNavigationView;
-        lateinit var addProductImageViewConst: ConstraintLayout;
-        lateinit var addProductDetailPickConst: ConstraintLayout;
+        lateinit var mediaSelecterCons: ConstraintLayout
+        lateinit var addProductToolbar: MaterialToolbar
+        lateinit var addProductBottomNav: BottomNavigationView
+        lateinit var addProductImageViewConst: ConstraintLayout
+        lateinit var addProductDetailPickConst: ConstraintLayout
 
         /* Variables para spinner item selected */
-        var productStatusSpinnerSelected: Int = 0;
-        var addProductDeliverySpinnerSelected: Int = 0;
-        lateinit var addProductCategoriSpinnerSelected: String;
+        var productStatusSpinnerSelected: Int = 0
+        var addProductDeliverySpinnerSelected: Int = 0
+        lateinit var addProductCategoriSpinnerSelected: String
         var categoriaId: Int = 0
 
         /* Form input variables */
-        lateinit var editTextAddProductBrand: EditText;
-        lateinit var editTextAddProductName: EditText;
-        lateinit var editTextAddProductDescription: EditText;
-        lateinit var editTextAddProductWeight: EditText;
-        lateinit var editTextAddProductPrice: EditText;
+        lateinit var editTextAddProductBrand: EditText
+        lateinit var editTextAddProductName: EditText
+        lateinit var editTextAddProductDescription: EditText
+        lateinit var editTextAddProductWeight: EditText
+        lateinit var editTextAddProductPrice: EditText
 
         /* text view variables error message */
-        lateinit var editTextAddProductImageErMsg: TextView;
-        lateinit var editTextAddProductBrandErMsg: TextView;
-        lateinit var editTextAddProductNameErMsg: TextView;
-        lateinit var editTextAddProductDescriptionErMsg: TextView;
-        lateinit var editTextAddProductWeightErMsg: TextView;
-        lateinit var editTextAddProductPriceErMsg: TextView;
-        lateinit var productStatusSpinnerErMsg: TextView;
-        lateinit var addProductDeliverySpinnerErMsg: TextView;
-        lateinit var addProductCategoriSpinnerErMsg: TextView;
+        lateinit var editTextAddProductImageErMsg: TextView
+        lateinit var editTextAddProductBrandErMsg: TextView
+        lateinit var editTextAddProductNameErMsg: TextView
+        lateinit var editTextAddProductDescriptionErMsg: TextView
+        lateinit var editTextAddProductWeightErMsg: TextView
+        lateinit var editTextAddProductPriceErMsg: TextView
+        lateinit var productStatusSpinnerErMsg: TextView
+        lateinit var addProductDeliverySpinnerErMsg: TextView
+        lateinit var addProductCategoriSpinnerErMsg: TextView
 
         /* Validation variable boolean for form*/
-        var imageMinimamBol: Boolean = false;
-        var editTextAddProductNameBol: Boolean = false;
-        var editTextAddProductBrandBol: Boolean = false;
-        var editTextAddProductDescriptionBol: Boolean = false;
-        var editTextAddProductWeightBol: Boolean = false;
-        var editTextAddProductPriceBol: Boolean = false;
-        var productStatusSpinnerSelectedBol: Boolean = false;
-        var addProductDeliverySpinnerSelectedBol: Boolean = false;
-        var addProductCategoriSpinnerSelectedBol: Boolean = false;
+        var imageMinimamBol: Boolean = false
+        var editTextAddProductNameBol: Boolean = false
+        var editTextAddProductBrandBol: Boolean = false
+        var editTextAddProductDescriptionBol: Boolean = false
+        var editTextAddProductWeightBol: Boolean = false
+        var editTextAddProductPriceBol: Boolean = false
+        var productStatusSpinnerSelectedBol: Boolean = false
+        var addProductDeliverySpinnerSelectedBol: Boolean = false
+        var addProductCategoriSpinnerSelectedBol: Boolean = false
     }
     var pickMultipleMedia = registerForActivityResult(PickMultipleVisualMedia(maxImage)) { uris ->
         if (uris.isNotEmpty()) {
             /*for (uri in uris){
                 val bitmap = uriToBitmap(uri, contentResolver)
-                bitmap?.let { imageUris.add(it) };
+                bitmap?.let { imageUris.add(it) }
             }*/
-            imageUris.addAll(uris);
-            adapterImage();
+            imageUris.addAll(uris)
+            adapterImage()
         } else {
             Log.d("PhotoPicker", "No media selected")
         }
@@ -116,11 +116,11 @@ class AddProduct : AppCompatActivity() {
 
     private fun validateForm(): Boolean {
         imageMinimamBol = imageUris.size>0
-        editTextAddProductNameBol = editTextAddProductName.text.isNotEmpty();
-        editTextAddProductBrandBol = editTextAddProductBrand.text.isNotEmpty();
-        editTextAddProductDescriptionBol = editTextAddProductDescription.text.isNotEmpty();
-        editTextAddProductWeightBol = editTextAddProductWeight.text.isNotEmpty();
-        editTextAddProductPriceBol = editTextAddProductPrice.text.isNotEmpty();
+        editTextAddProductNameBol = editTextAddProductName.text.isNotEmpty()
+        editTextAddProductBrandBol = editTextAddProductBrand.text.isNotEmpty()
+        editTextAddProductDescriptionBol = editTextAddProductDescription.text.isNotEmpty()
+        editTextAddProductWeightBol = editTextAddProductWeight.text.isNotEmpty()
+        editTextAddProductPriceBol = editTextAddProductPrice.text.isNotEmpty()
         productStatusSpinnerSelectedBol = (productStatusSpinnerSelected>0)
         addProductDeliverySpinnerSelectedBol = (addProductDeliverySpinnerSelected>0)
         addProductCategoriSpinnerSelectedBol = !(addProductCategoriSpinnerSelected.contains('!'))
@@ -132,27 +132,27 @@ class AddProduct : AppCompatActivity() {
                 editTextAddProductPriceBol &&
                 productStatusSpinnerSelectedBol &&
                 addProductDeliverySpinnerSelectedBol &&
-                addProductCategoriSpinnerSelectedBol);
+                addProductCategoriSpinnerSelectedBol)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
-        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE);
-        productStatusSpinner = findViewById(R.id.productStatusSpinner);
-        addProductDeliverySpinner = findViewById(R.id.addProductDeliverySpinner);
-        addProductCategoriSpinner = findViewById(R.id.addProductCategoriSpinner);
-        addProductToolbar = findViewById(R.id.addProductToolbar);
-        mediaSelecterCons = findViewById(R.id.mediaSelecterCons);
-        addProductCameraBtn = findViewById(R.id.addProductCameraBtn);
-        addProductGallaryBtn = findViewById(R.id.addProductGallaryBtn);
+        preferences = getSharedPreferences(getString(R.string.sesionPref), Context.MODE_PRIVATE)
+        productStatusSpinner = findViewById(R.id.productStatusSpinner)
+        addProductDeliverySpinner = findViewById(R.id.addProductDeliverySpinner)
+        addProductCategoriSpinner = findViewById(R.id.addProductCategoriSpinner)
+        addProductToolbar = findViewById(R.id.addProductToolbar)
+        mediaSelecterCons = findViewById(R.id.mediaSelecterCons)
+        addProductCameraBtn = findViewById(R.id.addProductCameraBtn)
+        addProductGallaryBtn = findViewById(R.id.addProductGallaryBtn)
         editTextAddProductImageErMsg = findViewById(R.id.editTextAddProductImageErMsg)
-        addProductGallaryPick = findViewById(R.id.addProductGallaryBtnPick);
-        addProductBottomNav = findViewById(R.id.addProductBottomNav);
-        addProductImageViewConst = findViewById(R.id.addProductImageViewConst);
-        addProductDetailPickConst = findViewById(R.id.addProductDetailPickConst);
-        val addNewProduct: Button = findViewById(R.id.addNewProduct);
+        addProductGallaryPick = findViewById(R.id.addProductGallaryBtnPick)
+        addProductBottomNav = findViewById(R.id.addProductBottomNav)
+        addProductImageViewConst = findViewById(R.id.addProductImageViewConst)
+        addProductDetailPickConst = findViewById(R.id.addProductDetailPickConst)
+        val addNewProduct: Button = findViewById(R.id.addNewProduct)
         /** Variales de Error Message  **/
         editTextAddProductBrandErMsg = findViewById(R.id.editTextAddProductBrandErMsg)
         editTextAddProductNameErMsg = findViewById(R.id.editTextAddProductNameErMsg)
@@ -164,21 +164,21 @@ class AddProduct : AppCompatActivity() {
         addProductCategoriSpinnerErMsg = findViewById(R.id.addProductCategoriSpinnerErMsg)
 
         /** Variables de inputs **/
-        editTextAddProductBrand = findViewById(R.id.editTextAddProductBrand);
-        editTextAddProductName = findViewById(R.id.editTextAddProductName);
-        editTextAddProductDescription = findViewById(R.id.editTextAddProductDescription);
-        editTextAddProductWeight = findViewById(R.id.editTextAddProductWeight);
-        editTextAddProductPrice = findViewById(R.id.editTextAddProductPrice);
+        editTextAddProductBrand = findViewById(R.id.editTextAddProductBrand)
+        editTextAddProductName = findViewById(R.id.editTextAddProductName)
+        editTextAddProductDescription = findViewById(R.id.editTextAddProductDescription)
+        editTextAddProductWeight = findViewById(R.id.editTextAddProductWeight)
+        editTextAddProductPrice = findViewById(R.id.editTextAddProductPrice)
 
         addNewProduct.setOnClickListener {
             if (!validateForm()) {
-                showErrorMsg();
+                showErrorMsg()
             }else{
-                showErrorMsg();
-                var conexion: FireBaseConexion =  FireBaseConexion();
+                showErrorMsg()
+                var conexion: FireBaseConexion =  FireBaseConexion()
 
-                val date = LocalDateTime.now();
-                val userId = preferences.getString("userId", null);
+                val date = LocalDateTime.now()
+                val userId = preferences.getString("userId", null)
                 var product = Product(
                     UUID.randomUUID().toString(),
                     editTextAddProductName.text.toString(),
@@ -204,17 +204,17 @@ class AddProduct : AppCompatActivity() {
                     userId!!,
                     productStatusSpinnerSelected,
                     categoriaId
-                );
+                )
 
 
-                conexion.createProduct(product, imageUris);
-                resetForm();
-                onBackPressed();
+                conexion.createProduct(product, imageUris)
+                resetForm()
+                onBackPressed()
             }
         }
 
 
-        recycleView = findViewById(R.id.addProductImageView);
+        recycleView = findViewById(R.id.addProductImageView)
         recycleView.setOnClickListener {
 
         }
@@ -235,7 +235,7 @@ class AddProduct : AppCompatActivity() {
                 )
             } else {
                 // Sinó farem l'intent de mostrar la càmera
-                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE));
+                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
             }
         }
         //selecionarImagen.setOnClickListener {
@@ -244,7 +244,7 @@ class AddProduct : AppCompatActivity() {
 
         addProductGallaryBtn.setOnClickListener {
             if (isExternalPermissionGranted()) {
-                pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly ));
+                pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly ))
             } else {
                 // Farem una petició de permisos
                 ActivityCompat.requestPermissions(
@@ -256,21 +256,21 @@ class AddProduct : AppCompatActivity() {
             mediaSelecterCons.visibility = View.GONE
         }
         addProductToolbar.setNavigationOnClickListener {
-            onBackPressed();
+            onBackPressed()
         }
 
         getSpinnerItemSelected(
             productStatusSpinner,
             resources.getStringArray(R.array.status_product_list)
-        );
+        )
         getSpinnerItemSelected(
             addProductDeliverySpinner,
             resources.getStringArray(R.array.delivery_list)
-        );
+        )
         getSpinnerItemSelected(
             addProductCategoriSpinner,
             resources.getStringArray(R.array.category_array_list)
-        );
+        )
     }
 
     private fun resetForm(){
@@ -279,7 +279,7 @@ class AddProduct : AppCompatActivity() {
         editTextAddProductPrice.text.clear()
         editTextAddProductWeight.text.clear()
         editTextAddProductBrand.text.clear()
-        imageUris.clear();
+        imageUris.clear()
     }
 
     private fun showErrorMsg() {
@@ -295,17 +295,17 @@ class AddProduct : AppCompatActivity() {
     }
 
     private fun adapterImage() {
-        recycleView.visibility = if(imageUris.size>0) View.VISIBLE else View.GONE;
-        recycleView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-        adapter = ImageRecycleView(imageUris, this, true);
-        recycleView.adapter = adapter;
+        recycleView.visibility = if(imageUris.size>0) View.VISIBLE else View.GONE
+        recycleView.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+        adapter = ImageRecycleView(imageUris, this, true)
+        recycleView.adapter = adapter
     }
 
     private fun getSpinnerItemSelected(s: Spinner, array: Array<String>) {
         if (s != null) {
-            val aA = ArrayAdapter(this, android.R.layout.simple_spinner_item, array);
+            val aA = ArrayAdapter(this, android.R.layout.simple_spinner_item, array)
             aA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            s.adapter = aA;
+            s.adapter = aA
             s.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -313,7 +313,7 @@ class AddProduct : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    val item = parent!!.getItemAtPosition(position).toString();
+                    val item = parent!!.getItemAtPosition(position).toString()
                     val selectedSpinnerId = parent?.id ?: return
                     when (selectedSpinnerId) {
                         R.id.productStatusSpinner -> {productStatusSpinnerSelected = position}
@@ -345,16 +345,16 @@ class AddProduct : AppCompatActivity() {
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val intent = result.data;
-                val imageBitmap = intent?.extras?.get("data") as Bitmap;
+                val intent = result.data
+                val imageBitmap = intent?.extras?.get("data") as Bitmap
                 //imageUris.add(intent)
                 if (imageBitmap != null) {
                     Toast.makeText(this, "anterea",Toast.LENGTH_SHORT).show()
                     //imageUris.add(imageBitmap)
-                    adapterImage();
+                    adapterImage()
                 }
-                //imageView.setImageBitmap(imageBitmap);
-                CAMERA_EXTERNAL = 1;
+                //imageView.setImageBitmap(imageBitmap)
+                CAMERA_EXTERNAL = 1
             }
         }
 

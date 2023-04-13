@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +19,12 @@ class ImageRecycleView(
     context: Context,
     b: Boolean,
 ) : RecyclerView.Adapter<ImageRecycleView.ViewHolder>() {
-    var listas: ArrayList<Uri> = listas;
-    var context: Context = context;
-    var b: Boolean = b;
+    var listas: ArrayList<Uri> = listas
+    var context: Context = context
+    var b: Boolean = b
     // Return cantidad de items en el recycler/lista
     override fun getItemCount(): Int {
-        return listas.size;
+        return listas.size
     }
 
     //Asociar la información que queremos mostrar en el item list
@@ -33,12 +32,12 @@ class ImageRecycleView(
         Glide.with(holder.itemView)
             .load(listas.get(position))
             .into(holder.imageView)
-        //holder.imageView.setImageURI(listas.get(position));
+        //holder.imageView.setImageURI(listas.get(position))
         if(b){
             holder.imageView.setOnClickListener {
-                var redrige = Intent(context, FullScreenImageView::class.java);
+                var redrige = Intent(context, FullScreenImageView::class.java)
                 redrige.putExtra("listas", listas)
-                context.startActivity(redrige);
+                context.startActivity(redrige)
             }
         }else{
             holder.imageView.setOnClickListener {
@@ -48,13 +47,13 @@ class ImageRecycleView(
     }
     //Devueve el item que voy a mostrar en el recycler
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val  layoutInflater = LayoutInflater.from(parent.context);
+        val  layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.image_item_view, parent, false))
     }
 
 
     //Definir los campos de mi item list
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        var imageView: ImageView = view.findViewById(R.id.image_item_view);
+        var imageView: ImageView = view.findViewById(R.id.image_item_view)
     }
 }

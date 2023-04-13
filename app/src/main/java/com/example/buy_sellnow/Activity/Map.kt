@@ -40,7 +40,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var selectedLocation: LatLng
     private lateinit var direccion: String
     private val zoomLevel = 8f
-    private lateinit var searchMapErMsg: TextView;
+    private lateinit var searchMapErMsg: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
