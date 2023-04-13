@@ -125,7 +125,7 @@ class FireBaseConexion {
         mDatabase = this.getReference("Productos");
         mDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val products: ArrayList<Product> = ArrayList<Product>()
+                val products: ArrayList<Product> = ArrayList()
                 products.clear();
                 for (pro in snapshot.children) {
                     val product = pro.getValue(Product::class.java)

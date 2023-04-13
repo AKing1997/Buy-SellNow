@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.buy_sellnow.Adapters.RecycleViewList
 import com.example.buy_sellnow.Connexions.FireBaseConexion
+import com.example.buy_sellnow.Model.Product
 import com.example.buy_sellnow.R
 import com.google.firebase.auth.FirebaseAuth
 
@@ -27,16 +28,25 @@ class Chat : Fragment() {
             if(it != null){
                 if(it.size>0){
                     var productIds: ArrayList<String> = ArrayList()
+                    var chatIds: ArrayList<String> = ArrayList()
                     for (productId in it){
+                        chatIds.add(productId.chatId)
                         productIds.add(productId.productId)
                     }
-                    conexion.getProductsByIds(productIds){pr->
-                        if (pr != null){
-                            chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false);
-                            val adapter : RecycleViewList = RecycleViewList(pr, view.context, it);
-                            chatRecyclerView.adapter = adapter;
-                            adapter.notifyDataSetChanged()
+                    conexion.getAllPublicacion {pr->
+                            val productList: MutableMap<String, Product> = mutableMapOf()
+                        if(pr.size>0){
+                            for (pro in pr) {
+                                val index = productIds.indexOf(pro.productId)
+                                if (index >= 0) {
+                                    productList.put(chatIds[index], pro)
+                                }
+                            }
                         }
+                        chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false);
+                        val adapter : RecycleViewList = RecycleViewList(productList, view.context, it);
+                        chatRecyclerView.adapter = adapter;
+                        adapter.notifyDataSetChanged()
                     }
                 }
             }
