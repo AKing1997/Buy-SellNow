@@ -6,15 +6,14 @@
     android:orientation="vertical"
     android:gravity="start"
     android:layout_gravity="start">
-
     <LinearLayout
         android:id="@+id/mLinear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:background="@drawable/recive_drawable"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:background="@drawable/recive_drawable"
+        android:padding="15dp"
+        android:layout_margin="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/reciveMsgTextView"
