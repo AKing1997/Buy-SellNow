@@ -5,10 +5,11 @@ import com.google.firebase.database.ServerValue
 
 data class Chat(
     var chatId: String,
+    var productId: String,
     var userBuyerId: String,
     var userSelletId: String,
     var createdDateTime: Any = ServerValue.TIMESTAMP
 ) {
-    constructor() : this("","","")
+    constructor() : this("","","","")
 }
 

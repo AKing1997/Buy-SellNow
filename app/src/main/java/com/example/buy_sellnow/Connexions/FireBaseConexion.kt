@@ -232,6 +232,26 @@ class FireBaseConexion {
         })
     }
 
+    fun getAllChatByUserId(userId: String, callback: (ArrayList<Chat>?) -> Unit) {
+        mDatabase = this.getReference("Chats");
+        mDatabase!!.equalTo(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var chats: ArrayList<Chat> = ArrayList()
+                if(dataSnapshot.exists()){
+                    for (data in dataSnapshot.children){
+                        val chat = data.getValue(Chat::class.java)
+                        chats.add(chat!!)
+                    }
+                    callback(chats)
+                }
+                callback(null)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
+
     fun sendMsg(msg: Message, chatID: String){
         mDatabase = this.getReference("Messages");
         mDatabase!!.child(chatID).child(UUID.randomUUID().toString()).setValue(msg)

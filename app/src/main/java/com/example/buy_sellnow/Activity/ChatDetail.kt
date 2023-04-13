@@ -94,7 +94,7 @@ class ChatDetail : AppCompatActivity() {
             if(it!=null){
                 chat = it
             }else{
-                conexion.createChat(Chat(chatID, USER_ID, PRODUCT_USER_ID,PRODUCT_ID))
+                conexion.createChat(Chat(chatID, PRODUCT_ID , USER_ID,PRODUCT_USER_ID))
             }
         }
 
