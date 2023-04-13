@@ -159,16 +159,18 @@ class FireBaseConexion {
         if(ids.size<1){
             return
         }
-        val query = mDatabase!!.orderByChild("productId").equalTo(ids[0])
+        /*val query = mDatabase!!.orderByChild("productId").equalTo(ids[0])
         for (i in 1 until ids.size) {
             query.equalTo(ids[i])
-        }
-        query.addValueEventListener(object : ValueEventListener {
+        }*/
+        mDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val products: ArrayList<Product> = ArrayList<Product>()
                 for (pro in snapshot.children) {
                     val product = pro.getValue(Product::class.java)
-                    products.add(product!!)
+                    if(product?.productId in ids){
+                        products.add(product!!)
+                    }
                 }
                 callback(products) // Llamamos al callback cuando se hayan obtenido los datos
             }
