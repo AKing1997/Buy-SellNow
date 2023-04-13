@@ -26,30 +26,33 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlin.math.roundToInt
 
 class RecycleViewList(
-    val chatList: ArrayList<Product>,
+    val productList: ArrayList<Product>,
     val context: Context?,
+    val chatList: ArrayList<Chat>
+
 ) : RecyclerView.Adapter<RecycleViewList.ViewHolder>() {
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
-
+    lateinit var redrige: Intent
     // Return cantidad de items en el recycler/lista
     override fun getItemCount(): Int {
-        return chatList.size;
+        return productList.size;
     }
 
     //Asociar la información que queremos mostrar en el item list
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        Glide.with(context!!).load(chatList[position].image[0]).into(holder.img)
-        holder.title.text = chatList[position].tituloDeProducto
+        Glide.with(context!!).load(productList[position].image[0]).into(holder.img)
+        holder.title.text = productList[position].tituloDeProducto
 
         holder.chatItemR.setOnClickListener {
-            if(ProductDetail.producto !=null){
-                ProductDetail.redrige = Intent(context, ChatDetail::class.java);
+            if(productList[position] !=null){
+                redrige = Intent(context, ChatDetail::class.java);
 
-                ProductDetail.redrige.putExtra("PRODUCT_ID",  chatList[position].productId)
-                ProductDetail.redrige.putExtra("USER_ID", userId)
-                ProductDetail.redrige.putExtra("PRODUCT_TITLE",  chatList[position].tituloDeProducto)
-                ProductDetail.redrige.putExtra("PRODUCT_IMG",  chatList[position].image[0])
-                ProductDetail.redrige.putExtra("PRODUCT_USER_ID",  chatList[position].userId)
+                redrige.putExtra("PRODUCT_ID",  productList[position].productId)
+                redrige.putExtra("CHAT_ID",  chatList[position].chatId)
+                redrige.putExtra("USER_ID", userId)
+                redrige.putExtra("PRODUCT_TITLE",  productList[position].tituloDeProducto)
+                redrige.putExtra("PRODUCT_IMG",  productList[position].image[0])
+                redrige.putExtra("PRODUCT_USER_ID",  productList[position].userId)
                 context.startActivity(ProductDetail.redrige)
             }
         }

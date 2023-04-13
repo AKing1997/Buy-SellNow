@@ -33,7 +33,7 @@ class Chat : Fragment() {
                     conexion.getProductsByIds(productIds){pr->
                         if (pr != null){
                             chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false);
-                            val adapter : RecycleViewList = RecycleViewList(pr, view.context);
+                            val adapter : RecycleViewList = RecycleViewList(pr, view.context, it);
                             chatRecyclerView.adapter = adapter;
                             adapter.notifyDataSetChanged()
                         }

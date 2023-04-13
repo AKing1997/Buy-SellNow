@@ -94,6 +94,7 @@ class ChatDetail : AppCompatActivity() {
             if (it != null) {
                 chat = it
             }else{
+                CHAT_ID = (PRODUCT_USER_ID+"-"+USER_ID+"-"+PRODUCT_ID)
                 conexion.createChat(Chat(CHAT_ID, PRODUCT_ID , USER_ID, PRODUCT_USER_ID))
             }
         }
@@ -111,8 +112,8 @@ class ChatDetail : AppCompatActivity() {
         PRODUCT_USER_ID = intent.getStringExtra("PRODUCT_USER_ID").toString()
         PRODUCT_TITLE = intent.getStringExtra("PRODUCT_TITLE").toString()
         PRODUCT_IMG = intent.getStringExtra("PRODUCT_IMG").toString()
+        CHAT_ID = intent.getStringExtra("CHAT_ID").toString()
         chatDetailProductName.setText(PRODUCT_TITLE)
-        CHAT_ID = (PRODUCT_USER_ID+"-"+USER_ID+"-"+PRODUCT_ID)
         Glide.with(this).load(PRODUCT_IMG)
             .into(chatDetailPImg)
         loadEvents()
