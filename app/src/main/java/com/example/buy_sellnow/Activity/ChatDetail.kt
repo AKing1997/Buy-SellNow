@@ -99,7 +99,7 @@ class ChatDetail : AppCompatActivity() {
         }
 
         conexion.getMsgByChatId(chatID){
-            msgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            msgRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 val adapter : MsgAdapter = MsgAdapter(it!!, this);
                 msgRecyclerView.adapter = adapter;
                 adapter.notifyDataSetChanged()

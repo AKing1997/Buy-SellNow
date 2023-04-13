@@ -156,6 +156,9 @@ class FireBaseConexion {
 
     fun getProductsByIds(ids: ArrayList<String>, callback: (ArrayList<Product>) -> Unit) {
         mDatabase = this.getReference("Productos")
+        if(ids.size<1){
+            return
+        }
         val query = mDatabase!!.orderByChild("productId").equalTo(ids[0])
         for (i in 1 until ids.size) {
             query.equalTo(ids[i])
