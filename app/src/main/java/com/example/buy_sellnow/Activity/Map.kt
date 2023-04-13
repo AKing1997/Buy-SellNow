@@ -36,11 +36,11 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var searchButton: ImageButton
     private lateinit var backSearchBtn: ImageButton
     private lateinit var btnGetLocation: ImageButton
-
     private lateinit var selectedLocation: LatLng
     private lateinit var direccion: String
     private val zoomLevel = 8f
     private lateinit var searchMapErMsg: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
@@ -68,7 +68,6 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "Porfavor seleciciona una ubicacion", Toast.LENGTH_SHORT).show()
             }
         }
-
         /* Boton que recoje la ubicacion de usuario */
         btnGetLocation.setOnClickListener { getCurrentLocation() }
 

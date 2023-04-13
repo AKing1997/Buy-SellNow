@@ -51,7 +51,6 @@ class EditUserDetail : AppCompatActivity() {
     lateinit var profilemediaSelecterCons: ConstraintLayout
     lateinit var profileCameraBtn: Button
     lateinit var profileGallaryBtn: Button
-
     lateinit var location: LatLng
     lateinit var direccion: String
 
@@ -222,7 +221,7 @@ class EditUserDetail : AppCompatActivity() {
         return Uri.fromFile(file)
     }
 
-    // Resposta de la càmera
+    /** Resposta de la càmera */
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -230,8 +229,6 @@ class EditUserDetail : AppCompatActivity() {
                 val imageBitmap = intent?.extras?.get("data") as Bitmap
                 //imageUris.add(intent)
                 if (imageBitmap != null) {
-                    //Toast.makeText(this, "anterea", Toast.LENGTH_SHORT).show()
-                    //imageUris.add(imageBitmap)
                     imageUri =  bitmapToUri(imageBitmap)
                     userImagePicker.setImageURI(imageUri)
                 }
@@ -240,7 +237,7 @@ class EditUserDetail : AppCompatActivity() {
             }
         }
 
-    // Permisos camera photo
+    /** Permisos camera photo */
     private fun isCameraPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -248,7 +245,7 @@ class EditUserDetail : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    //Permisos external storage
+    /** Permisos external storage */
     private fun isExternalPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -256,7 +253,7 @@ class EditUserDetail : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Resposta a l'acció de l'usuari en validar o no els permisos
+    /** Resposta a l'acció de l'usuari en validar o no els permisos */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -265,9 +262,7 @@ class EditUserDetail : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed with opening camera
             } else {
-                // Permission denied, handle accordingly
             }
         }/* else if (requestCode == EXTERNAL_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

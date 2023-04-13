@@ -37,13 +37,15 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         private lateinit var map: GoogleMap
         lateinit var redrige: Intent
 
+        /** Product Variables */
         lateinit var productUserId: String
         var producto: Product? = null
-        /* User variables */
+
+        /** User variables */
         lateinit var detail_total_sells: TextView
         lateinit var detail_username: TextView
 
-        /* Product variables */
+        /** Product variables */
         lateinit var detail_title: TextView
         lateinit var detail_description: TextView
         lateinit var detail_priece: TextView
@@ -51,13 +53,14 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
 
         /** ACTTIVITY PRODUCT DETAIL VARIABLES **/
         lateinit var productDetailChatBtn: Button
-        /* Image recycleView */
+        /** Image recycleView */
         lateinit var adapter: ImageRecycleView
         lateinit var productDetailRecycleView: RecyclerView
 
         val conexion: FireBaseConexion = FireBaseConexion()
         lateinit var dPFavBtn: ToggleButton
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
@@ -91,7 +94,6 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
         detail_description = findViewById(R.id.detail_description)
         detail_priece = findViewById(R.id.detail_priece)
         detail_profileImg = findViewById(R.id.detail_profileImg)
-
 
         productDetailChatBtn.setOnClickListener {
             if(producto!=null){

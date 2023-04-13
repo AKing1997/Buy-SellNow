@@ -58,27 +58,27 @@ class AddProduct : AppCompatActivity() {
         lateinit var addProductGallaryBtn: Button
         lateinit var addProductGallaryPick: Button
 
-        /* Layouts etc*/
+        /** Layouts etc*/
         lateinit var mediaSelecterCons: ConstraintLayout
         lateinit var addProductToolbar: MaterialToolbar
         lateinit var addProductBottomNav: BottomNavigationView
         lateinit var addProductImageViewConst: ConstraintLayout
         lateinit var addProductDetailPickConst: ConstraintLayout
 
-        /* Variables para spinner item selected */
+        /** Variables para spinner item selected */
         var productStatusSpinnerSelected: Int = 0
         var addProductDeliverySpinnerSelected: Int = 0
         lateinit var addProductCategoriSpinnerSelected: String
         var categoriaId: Int = 0
 
-        /* Form input variables */
+        /** Form input variables */
         lateinit var editTextAddProductBrand: EditText
         lateinit var editTextAddProductName: EditText
         lateinit var editTextAddProductDescription: EditText
         lateinit var editTextAddProductWeight: EditText
         lateinit var editTextAddProductPrice: EditText
 
-        /* text view variables error message */
+        /** text view variables error message */
         lateinit var editTextAddProductImageErMsg: TextView
         lateinit var editTextAddProductBrandErMsg: TextView
         lateinit var editTextAddProductNameErMsg: TextView
@@ -89,7 +89,7 @@ class AddProduct : AppCompatActivity() {
         lateinit var addProductDeliverySpinnerErMsg: TextView
         lateinit var addProductCategoriSpinnerErMsg: TextView
 
-        /* Validation variable boolean for form*/
+        /** Validation variable boolean for form*/
         var imageMinimamBol: Boolean = false
         var editTextAddProductNameBol: Boolean = false
         var editTextAddProductBrandBol: Boolean = false
@@ -341,7 +341,7 @@ class AddProduct : AppCompatActivity() {
         }
     }
 
-    // Resposta de la càmera
+    /** Resposta de la càmera */
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -358,7 +358,7 @@ class AddProduct : AppCompatActivity() {
             }
         }
 
-    // Permisos camera photo
+    /** Permisos camera photo */
     private fun isCameraPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -366,7 +366,7 @@ class AddProduct : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    //Permisos external storage
+    /** Permisos external storage */
     private fun isExternalPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -374,7 +374,7 @@ class AddProduct : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Resposta a l'acció de l'usuari en validar o no els permisos
+    /** Resposta a l'acció de l'usuari en validar o no els permisos */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,

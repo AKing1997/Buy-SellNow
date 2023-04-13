@@ -25,24 +25,24 @@ class EditProduct : AppCompatActivity() {
 
         lateinit var deleteProductBtnEdit: Button
 
-        /* Layouts etc*/
+        /** Layouts etc*/
         lateinit var editProductToolbar: MaterialToolbar
         lateinit var editProductBottomNav: BottomNavigationView
 
-        /* Variables para spinner item selected */
+        /** Variables para spinner item selected */
         var productStatusSpinnerSelected: Int = 0
         var editProductDeliverySpinnerSelected: Int = 0
         lateinit var editProductCategoriSpinnerSelected: String
         var categoriaId: Int = 0
 
-        /* Form input variables */
+        /** Form input variables */
         lateinit var editTexteditProductBrand: EditText
         lateinit var editTexteditProductName: EditText
         lateinit var editTexteditProductDescription: EditText
         lateinit var editTexteditProductWeight: EditText
         lateinit var editTexteditProductPrice: EditText
 
-        /* text view variables error message */
+        /** text view variables error message */
         lateinit var editTexteditProductBrandErMsg: TextView
         lateinit var editTexteditProductNameErMsg: TextView
         lateinit var editTexteditProductDescriptionErMsg: TextView
@@ -52,7 +52,7 @@ class EditProduct : AppCompatActivity() {
         lateinit var editProductDeliverySpinnerErMsg: TextView
         lateinit var editProductCategoriSpinnerErMsg: TextView
 
-        /* Validation variable boolean for form*/
+        /** Validation variable boolean for form*/
         var editTexteditProductNameBol: Boolean = false
         var editTexteditProductBrandBol: Boolean = false
         var editTexteditProductDescriptionBol: Boolean = false
@@ -153,7 +153,6 @@ class EditProduct : AppCompatActivity() {
                     "0",
                     "",
                     Status.Activeted,
-
                     (if(1== productStatusSpinnerSelected) ProductStatus.Nuevo else
                         if(2== productStatusSpinnerSelected) ProductStatus.BuenEstado else
                             if(3== productStatusSpinnerSelected) ProductStatus.Bien else
@@ -231,11 +230,9 @@ class EditProduct : AppCompatActivity() {
                         }
                     }
                 }
-
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     TODO("Not yet implemented")
                 }
-
             }
         }
     }

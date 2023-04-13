@@ -22,12 +22,12 @@ class ImageRecycleView(
     var listas: ArrayList<Uri> = listas
     var context: Context = context
     var b: Boolean = b
-    // Return cantidad de items en el recycler/lista
+    /** Return cantidad de items en el recycler/lista */
     override fun getItemCount(): Int {
         return listas.size
     }
 
-    //Asociar la información que queremos mostrar en el item list
+    /** Asociar la información que queremos mostrar en el item list */
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         Glide.with(holder.itemView)
             .load(listas.get(position))
@@ -45,14 +45,14 @@ class ImageRecycleView(
             }
         }
     }
-    //Devueve el item que voy a mostrar en el recycler
+    /** Devueve el item que voy a mostrar en el recycler */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val  layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.image_item_view, parent, false))
     }
 
 
-    //Definir los campos de mi item list
+    /** Definir los campos de mi item list */
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         var imageView: ImageView = view.findViewById(R.id.image_item_view)
     }

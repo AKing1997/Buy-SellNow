@@ -50,7 +50,7 @@ class FireBaseConexion {
             mDatabase!!.child(product.productId.toString()).setValue(product);
         }
     }
-    // UPDATE PRODUCT
+    /** UPDATE PRODUCT */
     fun updateProduct(product: Product) {
         mDatabase = this.getReference("Productos")
         mDatabase!!.child(product.productId.toString()).setValue(product);
@@ -212,7 +212,7 @@ class FireBaseConexion {
             }
         })
     }
-    /** Chat funcions **/
+    /** Chat functions **/
     fun createChat(chat: Chat){
         mDatabase = this.getReference("Chats")
         mDatabase!!.child(chat.chatId).setValue(chat)
