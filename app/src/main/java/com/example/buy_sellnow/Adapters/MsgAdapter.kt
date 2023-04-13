@@ -32,7 +32,6 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
         val msg = msgs[position].msg
         val time = msgs[position].sendTime
         val img = msgs[position].img
-        Log.i("pro12",msg)
 
         if(holder.javaClass == Sender::class.java){
             val viewHolder = holder as Sender

@@ -32,7 +32,6 @@ class RecycleViewList(
 
 ) : RecyclerView.Adapter<RecycleViewList.ViewHolder>() {
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
-    lateinit var redrige: Intent
     // Return cantidad de items en el recycler/lista
     override fun getItemCount(): Int {
         return productList.size;
@@ -45,15 +44,14 @@ class RecycleViewList(
 
         holder.chatItemR.setOnClickListener {
             if(productList[position] !=null){
-                redrige = Intent(context, ChatDetail::class.java);
-
+                val redrige = Intent(context, ChatDetail::class.java);
                 redrige.putExtra("PRODUCT_ID",  productList[position].productId)
                 redrige.putExtra("CHAT_ID",  chatList[position].chatId)
                 redrige.putExtra("USER_ID", userId)
                 redrige.putExtra("PRODUCT_TITLE",  productList[position].tituloDeProducto)
                 redrige.putExtra("PRODUCT_IMG",  productList[position].image[0])
                 redrige.putExtra("PRODUCT_USER_ID",  productList[position].userId)
-                context.startActivity(ProductDetail.redrige)
+                context.startActivity(redrige)
             }
         }
     }
