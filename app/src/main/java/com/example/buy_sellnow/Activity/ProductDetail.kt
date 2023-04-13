@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -110,6 +111,11 @@ class ProductDetail: AppCompatActivity(), OnMapReadyCallback {
             onBackPressed();
         }
         conexion.getProductById(productId!!) { product ->
+            if(product.userId == userId){
+                productDetailChatBtn.visibility = View.GONE
+                dPFavBtn.visibility = View.GONE
+            }
+
             var imageUrl: ArrayList<Uri> = ArrayList();
             for (prod in product.image){
                 imageUrl.add(Uri.parse(prod))
