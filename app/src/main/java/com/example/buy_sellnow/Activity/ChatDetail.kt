@@ -41,7 +41,8 @@ class ChatDetail : AppCompatActivity() {
     lateinit var chatDetailBkBtn: ImageButton
     lateinit var chatDetailPImg: ImageView
     /** Chat Bottom variables **/
-    lateinit var chatDetailAddBtn: ImageView
+    lateinit var chatShareImage: ImageView
+    lateinit var chatCamera: ImageView
     lateinit var chatDetailTextEdit: EditText
     lateinit var chatDetailSendBtn: ImageView
     lateinit var msgRecyclerView: RecyclerView
@@ -62,7 +63,8 @@ class ChatDetail : AppCompatActivity() {
 
         msgRecyclerView = findViewById(R.id.msgRecyclerView)
 
-        chatDetailAddBtn = findViewById(R.id.chatDetailAddBtn)
+        chatShareImage = findViewById(R.id.chatShareImage)
+        chatCamera = findViewById(R.id.chatCamera)
         chatDetailTextEdit = findViewById(R.id.chatDetailTextEdit)
         chatDetailSendBtn = findViewById(R.id.chatDetailSendBtn)
 
