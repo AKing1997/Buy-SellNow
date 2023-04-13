@@ -27,9 +27,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".borrar"
-            android:exported="false" />
-        <activity
             android:name=".Activity.EditProduct"
             android:exported="false" />
         <activity

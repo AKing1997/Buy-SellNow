@@ -234,13 +234,17 @@ class FireBaseConexion {
 
     fun getAllChatByUserId(userId: String, callback: (ArrayList<Chat>?) -> Unit) {
         mDatabase = this.getReference("Chats");
-        mDatabase!!.equalTo(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+        mDatabase!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var chats: ArrayList<Chat> = ArrayList()
                 if(dataSnapshot.exists()){
                     for (data in dataSnapshot.children){
                         val chat = data.getValue(Chat::class.java)
-                        chats.add(chat!!)
+                        if (chat != null) {
+                            if(chat.userBuyerId == userId || chat.userSelletId == userId){
+                                chats.add(chat)
+                            }
+                        }
                     }
                     callback(chats)
                 }

@@ -25,16 +25,18 @@ class Chat : Fragment() {
 
         conexion.getAllChatByUserId(userId){
             if(it != null){
-                var productIds: ArrayList<String> = ArrayList()
-                for (productId in it){
-                    productIds.add(productId.productId)
-                }
-                conexion.getProductsByIds(productIds){pr->
-                    if (pr != null){
-                        chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false);
-                        val adapter : RecycleViewList = RecycleViewList(pr, view.context);
-                        chatRecyclerView.adapter = adapter;
-                        adapter.notifyDataSetChanged()
+                if(it.size>0){
+                    var productIds: ArrayList<String> = ArrayList()
+                    for (productId in it){
+                        productIds.add(productId.productId)
+                    }
+                    conexion.getProductsByIds(productIds){pr->
+                        if (pr != null){
+                            chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false);
+                            val adapter : RecycleViewList = RecycleViewList(pr, view.context);
+                            chatRecyclerView.adapter = adapter;
+                            adapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }
