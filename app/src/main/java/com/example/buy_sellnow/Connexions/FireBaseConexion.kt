@@ -29,8 +29,19 @@ class FireBaseConexion {
         return FirebaseDatabase.getInstance("https://buy-sell-now-an-default-rtdb.europe-west1.firebasedatabase.app")
             .getReference(reference);
     }
+    fun getUserById(userId: String, callback: (tempUser?) -> Unit) {
+        mDatabase = this.getReference("Users");
+        mDatabase!!.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue(tempUser::class.java)
+                callback(user)
+            }
 
-
+            override fun onCancelled(databaseError: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
     fun updateUserDetaill(user: tempUser, imageUri: Uri?) {
         mDatabase = this.getReference("Users");
         if (imageUri != null) {
@@ -60,8 +71,6 @@ class FireBaseConexion {
         mDatabase = this.getReference("Productos")
         mDatabase!!.child(id).removeValue();
     }
-
-
 
     private fun uploadImages(images: ArrayList<Uri>, callback: (ArrayList<String>) -> Unit) {
         val uriList = ArrayList<String>()
@@ -144,7 +153,9 @@ class FireBaseConexion {
         mDatabase!!.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val product = snapshot.getValue(Product::class.java)
-                callback(product!!)
+                if (product != null) {
+                    callback(product)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -199,18 +210,7 @@ class FireBaseConexion {
         })
     }
 
-    fun getUserById(userId: String, callback: (tempUser?) -> Unit) {
-        mDatabase = this.getReference("Users");
-        mDatabase!!.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue(tempUser::class.java)
-                callback(user)
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                callback(null)
-            }
-        })
-    }
+
     /** Chat functions **/
     fun createChat(chat: Chat){
         mDatabase = this.getReference("Chats")
