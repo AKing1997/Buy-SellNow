@@ -26,18 +26,18 @@ class Chat : Fragment() {
         val chatRecyclerView: RecyclerView = view.findViewById(R.id.chatRecyclerView)
         val nonChatProductMsg: TextView = view.findViewById(R.id.nonChatProductMsg)
 
-        conexion.getAllChatByUserId(userId){ chatList ->
-            if(chatList != null){
-                if(chatList.size > 0){
-                    var productIds: ArrayList<String> = ArrayList()
-                    var chatIds: ArrayList<String> = ArrayList()
-                    for (chat in chatList){
-                        chatIds.add(chat.chatId)
-                        productIds.add(chat.productId)
-                    }
+        conexion.getAllChatByUserId(userId) { chatList ->
+            if (chatList != null) {
+                var productIds: ArrayList<String> = ArrayList()
+                var chatIds: ArrayList<String> = ArrayList()
+                for (chat in chatList) {
+                    chatIds.add(chat.chatId)
+                    productIds.add(chat.productId)
+                }
+                if (chatList.size > 0) {
                     conexion.getAllPublicacion { productList ->
                         val filteredProductList: MutableMap<String, Product> = mutableMapOf()
-                        if(productList != null && productList.size > 0){
+                        if (productList != null && productList.size > 0) {
                             for (product in productList) {
                                 val index = productIds.indexOf(product.productId)
                                 if (index >= 0) {
@@ -45,8 +45,10 @@ class Chat : Fragment() {
                                 }
                             }
                         }
-                        chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-                        val adapter : RecycleViewList = RecycleViewList(filteredProductList, view.context, chatList)
+                        chatRecyclerView.layoutManager =
+                            LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+                        val adapter: RecycleViewList =
+                            RecycleViewList(filteredProductList, view.context, chatList)
                         chatRecyclerView.adapter = adapter
                         adapter.notifyDataSetChanged()
 
