@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,31 +24,36 @@ class Chat : Fragment() {
         val conexion: FireBaseConexion = FireBaseConexion()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         val chatRecyclerView: RecyclerView = view.findViewById(R.id.chatRecyclerView)
+        val nonChatProductMsg: TextView = view.findViewById(R.id.nonChatProductMsg)
 
-        conexion.getAllChatByUserId(userId){
-            if(it != null){
-                if(it.size>0){
+        conexion.getAllChatByUserId(userId){ chatList ->
+            if(chatList != null){
+                if(chatList.size > 0){
                     var productIds: ArrayList<String> = ArrayList()
                     var chatIds: ArrayList<String> = ArrayList()
-                    for (productId in it){
-                        chatIds.add(productId.chatId)
-                        productIds.add(productId.productId)
+                    for (chat in chatList){
+                        chatIds.add(chat.chatId)
+                        productIds.add(chat.productId)
                     }
-                    conexion.getAllPublicacion {pr->
-                            val productList: MutableMap<String, Product> = mutableMapOf()
-                        if(pr.size>0){
-                            for (pro in pr) {
-                                val index = productIds.indexOf(pro.productId)
+                    conexion.getAllPublicacion { productList ->
+                        val filteredProductList: MutableMap<String, Product> = mutableMapOf()
+                        if(productList != null && productList.size > 0){
+                            for (product in productList) {
+                                val index = productIds.indexOf(product.productId)
                                 if (index >= 0) {
-                                    productList.put(chatIds[index], pro)
+                                    filteredProductList.put(chatIds[index], product)
                                 }
                             }
                         }
-                        chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false);
-                        val adapter : RecycleViewList = RecycleViewList(productList, view.context, it);
-                        chatRecyclerView.adapter = adapter;
+                        chatRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+                        val adapter : RecycleViewList = RecycleViewList(filteredProductList, view.context, chatList)
+                        chatRecyclerView.adapter = adapter
                         adapter.notifyDataSetChanged()
+
+                        nonChatProductMsg.visibility = View.GONE
                     }
+                } else {
+                    nonChatProductMsg.visibility = View.VISIBLE
                 }
             }
         }

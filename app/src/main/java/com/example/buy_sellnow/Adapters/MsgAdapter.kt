@@ -1,11 +1,11 @@
 package com.example.buy_sellnow.Adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -35,7 +35,11 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
 
         if(holder.javaClass == Sender::class.java){
             val viewHolder = holder as Sender
-            viewHolder.sendTextView.text = msg
+            if(msg.isNotEmpty()){
+                viewHolder.sendTextView.text = msg
+            }else{
+                viewHolder.sendLinearLayout.visibility = View.GONE
+            }
             if(img.isNotEmpty()){
                 viewHolder.sendChatImage.visibility = View.VISIBLE
                 Glide.with(context).load(img).into(viewHolder.sendChatImage)
@@ -44,7 +48,11 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
             }
         } else {
             val viewHolder = holder as Reciver
-            viewHolder.reciveMsgTextView.text = msg
+            if(msg.isNotEmpty()){
+                viewHolder.reciveMsgTextView.text = msg
+            }else{
+                viewHolder.reciveLinearLayout.visibility = View.GONE
+            }
             if(img.isNotEmpty()){
                 viewHolder.reciveChatImage.visibility = View.VISIBLE
                 Glide.with(context).load(img).into(viewHolder.reciveChatImage)
@@ -77,10 +85,12 @@ class MsgAdapter(private val msgs: ArrayList<Message>, val context: Context): Re
     class Sender(view: View): RecyclerView.ViewHolder(view){
         val sendTextView: TextView = view.findViewById(R.id.sendTextView)
         val sendChatImage: ImageView = view.findViewById(R.id.sendChatImage)
+        val sendLinearLayout: LinearLayout = view.findViewById(R.id.sendLinearLayout)
     }
 
     class Reciver(view: View): RecyclerView.ViewHolder(view){
         val reciveMsgTextView: TextView = view.findViewById(R.id.reciveMsgTextView)
         val reciveChatImage: ImageView = view.findViewById(R.id.reciveChatImage)
+        val reciveLinearLayout: LinearLayout = view.findViewById(R.id.sendLinearLayout)
     }
 }

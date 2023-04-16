@@ -262,15 +262,16 @@ class EditUserDetail : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
             } else {
             }
-        }/* else if (requestCode == EXTERNAL_PERMISSION_REQUEST_CODE) {
+        } else if (requestCode == EXTERNAL_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed with opening camera
+                pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             } else {
                 // Permission denied, handle accordingly
             }
-        }*/
+        }
     }
 /*
     override fun onMapReady(googleMap: GoogleMap) {

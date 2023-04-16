@@ -84,5 +84,7 @@
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
     <string name="minimamImage">Selecciona al menos un imagen</string>
     <string name="location_required">Location is required. Please enter it again.</string>
+    <string name="nonFavProductMsg">¡It seems like you don\'t have any products in favorites yet!</string>
+    <string name="nonChatProductMsg">It seems like you haven\'t started any conversations yet!</string>
 
 </resources>

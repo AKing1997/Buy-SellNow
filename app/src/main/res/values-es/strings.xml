@@ -70,5 +70,7 @@
     <string name="signUpPasswordNotMatchErMsg">¡Oops, las contraseñas no coinciden!</string>
     <string name="minimamImage">Selecciona al menos un imagen</string>
     <string name="location_required">La ubicación es obligatoria. Por favor, introdúcela de nuevo.</string>
+    <string name="nonFavProductMsg">¡Parece que aún no tienes ningún producto en favoritos!</string>
+    <string name="nonChatProductMsg">¡Parece que aún no has iniciado ninguna conversación!</string>
 
 </resources>

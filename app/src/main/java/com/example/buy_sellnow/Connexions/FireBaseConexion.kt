@@ -257,9 +257,17 @@ class FireBaseConexion {
         })
     }
 
-    fun sendMsg(msg: Message, chatID: String){
+    fun sendMsg(msg: Message, chatID: String, image: Uri){
         mDatabase = this.getReference("Messages");
-        mDatabase!!.child(chatID).child(UUID.randomUUID().toString()).setValue(msg)
+        if (image != null) {
+            uploadImage("",image) { url ->
+                msg.img = url
+                mDatabase!!.child(chatID).child(UUID.randomUUID().toString()).setValue(msg)
+
+            }
+        } else {
+            mDatabase!!.child(chatID).child(UUID.randomUUID().toString()).setValue(msg)
+        }
     }
 
     fun getMsgByChatId(chatID: String, callback: (ArrayList<Message>?) -> Unit){

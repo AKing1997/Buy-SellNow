@@ -12,13 +12,17 @@
         android:layout_margin="5dp">
 
         <TextView
-            android:id="@+id/nonProductMsg"
+            android:id="@+id/nonFavProductMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/card_background"
-            android:backgroundTint="#A44CAF50"
+            android:backgroundTint="#313231"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="@string/nonFavProductMsg"
+            android:textColor="@color/white"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

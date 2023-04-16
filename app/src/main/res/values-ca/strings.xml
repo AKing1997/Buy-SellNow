@@ -67,5 +67,7 @@
     <string name="signUpPasswordNotMatchErMsg">¡Ups, les contrasenyes no coincideixen!</string>
     <string name="minimamImage">Selecciona al menos un imagen</string>
     <string name="location_required">La ubicació és obligatòria. Si us plau, introdueix-la de nou.</string>
+    <string name="nonFavProductMsg">¡Sembla que encara no tens cap producte als preferits!</string>
+    <string name="nonChatProductMsg">Sembla que encara no has iniciat cap conversa!</string>
 
 </resources>

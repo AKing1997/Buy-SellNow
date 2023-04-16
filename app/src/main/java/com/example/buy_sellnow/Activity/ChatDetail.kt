@@ -1,16 +1,28 @@
 package com.example.buy_sellnow.Activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.telecom.Call
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +32,7 @@ import com.example.buy_sellnow.Interface.FCMService
 import com.example.buy_sellnow.Model.Chat
 import com.example.buy_sellnow.Model.Message
 import com.example.buy_sellnow.R
+import com.google.android.gms.maps.GoogleMap
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
@@ -28,6 +41,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 
 class ChatDetail : AppCompatActivity() {
@@ -58,7 +73,24 @@ class ChatDetail : AppCompatActivity() {
     var mensage: Message? = null
     val conexion: FireBaseConexion = FireBaseConexion()
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
+    companion object {
+        private lateinit var map: GoogleMap
+        private const val REQUEST_CODE = 1
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
+        private const val EXTERNAL_PERMISSION_REQUEST_CODE = 1002
+        private var CAMERA_EXTERNAL = 0 //1 CAM - 2 EXTERNAL
+    }
+    var pickMultipleMedia = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        if (uri != null) {
+            conexion.sendMsg(Message(userId,"",""), CHAT_ID,imageUri)
 
+            //imageUri = uri
+        } else {
+            Log.d("PhotoPicker", "No media selected")
+        }
+    }
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +115,31 @@ class ChatDetail : AppCompatActivity() {
         chatCamera = findViewById(R.id.chatCamera)
         chatDetailTextEdit = findViewById(R.id.chatDetailTextEdit)
         chatDetailSendBtn = findViewById(R.id.chatDetailSendBtn)
-
+        chatCamera.setOnClickListener {
+            if (!isCameraPermissionGranted()) {
+                // Farem una petició de permisos
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.CAMERA),
+                    CAMERA_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                // Sinó farem l'intent de mostrar la càmera
+                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+            }
+        }
+        chatShareImage.setOnClickListener {
+            if (isExternalPermissionGranted()) {
+                pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            } else {
+                // Farem una petició de permisos
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    EXTERNAL_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
 
         loadInfo()
 
@@ -99,7 +155,7 @@ class ChatDetail : AppCompatActivity() {
             var msg = chatDetailTextEdit.text
             if (msg.isNotEmpty()) {
                 mensage = Message(userId, msg.toString(), "")
-                conexion.sendMsg(mensage!!, CHAT_ID)
+                conexion.sendMsg(mensage!!, CHAT_ID,imageUri)
                 val ids = CHAT_ID.split("-")
                 if(userId == ids[0]){
                     getUserToken(ids[1])
@@ -169,19 +225,6 @@ class ChatDetail : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(FCMService::class.java)
-
-        /*service.sendNotification(notification).enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(
-                call: retrofit2.Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-            }
-
-            override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
-                Log.e("Notification Failure", "Error sending notification: ${t.message}")
-            }
-        })
-    }*/
         service.sendNotification(notification).enqueue(object : Callback<Any> {
             override fun onResponse(call: retrofit2.Call<Any>, response: Response<Any>) {
                 Log.i("TokenMessage", "Success ${response}----${response.isSuccessful}")
@@ -192,6 +235,73 @@ class ChatDetail : AppCompatActivity() {
             }
 
         })
+    }
+
+    /** Resposta de la càmera */
+    private val cameraResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                val imageBitmap = intent?.extras?.get("data") as Bitmap
+                //imageUris.add(intent)
+                if (imageBitmap != null) {
+                    imageUri =  bitmapToUri(imageBitmap)
+                    conexion.sendMsg(Message(userId,"",""), CHAT_ID,imageUri)
+                }
+                //imageView.setImageBitmap(imageBitmap)
+                CAMERA_EXTERNAL = 1
+            }
+        }
+    private fun bitmapToUri(bitmap: Bitmap): Uri {
+        // Obtener el directorio de la imagen en el almacenamiento externo de la aplicación
+        val imagesDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        // Crear un archivo temporal para guardar la imagen
+        val file = File(imagesDirectory, "${UUID.randomUUID()}.jpg")
+
+        // Comprimir la imagen y guardarla en el archivo temporal
+        val stream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        stream.flush()
+        stream.close()
+
+        // Devolver la Uri del archivo temporal
+        return Uri.fromFile(file)
+    }
+    private fun isCameraPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /** Permisos external storage */
+    private fun isExternalPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /** Resposta a l'acció de l'usuari en validar o no els permisos */
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                cameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+            } else {
+            }
+        } else if (requestCode == EXTERNAL_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            } else {
+                // Permission denied, handle accordingly
+            }
+        }
     }
 
 }
