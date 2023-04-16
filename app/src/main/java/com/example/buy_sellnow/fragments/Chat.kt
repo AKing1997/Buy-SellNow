@@ -34,7 +34,7 @@ class Chat : Fragment() {
                     chatIds.add(chat.chatId)
                     productIds.add(chat.productId)
                 }
-                if (chatList.size > 0) {
+                    nonChatProductMsg.visibility = View.GONE
                     conexion.getAllPublicacion { productList ->
                         val filteredProductList: MutableMap<String, Product> = mutableMapOf()
                         if (productList != null && productList.size > 0) {
@@ -51,13 +51,10 @@ class Chat : Fragment() {
                             RecycleViewList(filteredProductList, view.context, chatList)
                         chatRecyclerView.adapter = adapter
                         adapter.notifyDataSetChanged()
-
-                        nonChatProductMsg.visibility = View.GONE
                     }
                 } else {
                     nonChatProductMsg.visibility = View.VISIBLE
                 }
-            }
         }
         return view;
     }

@@ -389,7 +389,7 @@ class AddProduct : AppCompatActivity() {
             }
         } else if (requestCode == EXTERNAL_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed with opening camera
+                pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly ))
             } else {
                 // Permission denied, handle accordingly
             }
