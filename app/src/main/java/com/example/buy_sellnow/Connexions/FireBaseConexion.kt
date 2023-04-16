@@ -247,9 +247,13 @@ class FireBaseConexion {
                             }
                         }
                     }
-                    callback(chats)
+                    if(chats.size>0){
+                        callback(chats)
+                    }else{
+                        callback(null)
+                    }
                 }
-                callback(null)
+
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 callback(null)
@@ -257,7 +261,7 @@ class FireBaseConexion {
         })
     }
 
-    fun sendMsg(msg: Message, chatID: String, image: Uri){
+    fun sendMsg(msg: Message, chatID: String, image: Uri?){
         mDatabase = this.getReference("Messages");
         if (image != null) {
             uploadImage("",image) { url ->

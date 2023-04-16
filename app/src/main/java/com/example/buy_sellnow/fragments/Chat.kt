@@ -28,13 +28,14 @@ class Chat : Fragment() {
 
         conexion.getAllChatByUserId(userId) { chatList ->
             if (chatList != null) {
+                nonChatProductMsg.visibility = View.GONE
                 var productIds: ArrayList<String> = ArrayList()
                 var chatIds: ArrayList<String> = ArrayList()
                 for (chat in chatList) {
                     chatIds.add(chat.chatId)
                     productIds.add(chat.productId)
                 }
-                    nonChatProductMsg.visibility = View.GONE
+
                     conexion.getAllPublicacion { productList ->
                         val filteredProductList: MutableMap<String, Product> = mutableMapOf()
                         if (productList != null && productList.size > 0) {

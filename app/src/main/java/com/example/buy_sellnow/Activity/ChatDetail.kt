@@ -155,7 +155,7 @@ class ChatDetail : AppCompatActivity() {
             var msg = chatDetailTextEdit.text
             if (msg.isNotEmpty()) {
                 mensage = Message(userId, msg.toString(), "")
-                conexion.sendMsg(mensage!!, CHAT_ID,imageUri)
+                conexion.sendMsg(mensage!!, CHAT_ID, null)
                 val ids = CHAT_ID.split("-")
                 if(userId == ids[0]){
                     getUserToken(ids[1])
